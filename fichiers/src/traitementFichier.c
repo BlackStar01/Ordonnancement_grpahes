@@ -4,7 +4,7 @@
 
 int nbrSommets()
 {
-    FILE *ourFile = fopen("test.txt", "r");
+    FILE *ourFile = fopen("../fichiers/test.txt", "r");
     char character;
     int compt = 1;
     
@@ -26,20 +26,6 @@ int nbrSommets()
     
     return compt;
 }
-
-/* File *copieFile(File *uneFile)
-{
-    int compt = 0;
-    File *nouvelleFile = malloc(nbrSommets(uneFile) * sizeof(int));
-    nouvelleFile->firstElement = malloc(sizeof(int));
-
-    for (int i = 0; i < nbrSommets; i++)
-    {
-        graph->durees[i] = model->durees[i];
-    }
-
-    return nouvelleFile
-} */
 
 int *tableauDurees(File *uneFile)
 {
@@ -68,6 +54,38 @@ int *tableauDurees(File *uneFile)
 
     return tab;
 }
+
+File *tableauPredecesseurs(File *uneFile)
+{
+    File *f1 = initialisationFile();
+    f1 = uneFile;
+
+    File *fileDePredecesseurs = initialisationFile();
+    int compt = 0;
+    while (f1->firstElement!=NULL)
+    {
+        if (compt == 0)
+        {
+            defiler(f1);
+            defiler(f1);
+            compt++;
+        }
+
+        int alpha = defiler(f1);
+        if (alpha == 980)
+        {
+            defiler(f1);
+            defiler(f1);
+            enfiler(fileDePredecesseurs, 980); // Peut être effacé pour avoir le tableau normal
+        }
+        else
+        { 
+            enfiler(fileDePredecesseurs, alpha);
+        }
+    }    
+
+    return fileDePredecesseurs;
+} 
 
 File *recupererDonnees(FILE *fichier)
 {

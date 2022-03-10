@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../fichiers/src/file.c"
+#include "../../fichiers/src/file.c"
 
 typedef struct Graphe Graphe;
 struct Graphe
@@ -33,7 +33,7 @@ Graphe *initialisationGraphe(int nbrSommets, int *tableauDuree, File **predecess
     if (monGraphe == NULL)
     {
         perror("Erreur lors de la création du graphe");
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
     monGraphe->nbrSommets = nbrSommets;
 
