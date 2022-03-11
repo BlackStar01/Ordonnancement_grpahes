@@ -46,11 +46,6 @@ int *tableauDurees(File *uneFile)
             i++;
         }
     }
-    
-    /* for (int k = 0; k < nbrSommets(); k++)
-    {
-        printf("%d - ", tab[k]);
-    } */
 
     return tab;
 }
@@ -59,6 +54,7 @@ File *tableauPredecesseurs(File *uneFile)
 {
     File *f1 = initialisationFile();
     f1 = uneFile;
+    /* On fait une copie pour éviter de perdre des données ... On travaillera avec la copie du coup */
 
     File *fileDePredecesseurs = initialisationFile();
     int compt = 0;
@@ -66,10 +62,17 @@ File *tableauPredecesseurs(File *uneFile)
     {
         if (compt == 0)
         {
+            /* 
+                On défile deux fois pour enlever le premier element de la file (sommet) 
+                Et le deuxieme element ... qui est la durée
+            */
             defiler(f1);
             defiler(f1);
             compt++;
         }
+        /*
+            980 représente le séparateur de notre file 
+        */
 
         int alpha = defiler(f1);
         if (alpha == 980)
