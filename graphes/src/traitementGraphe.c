@@ -27,6 +27,11 @@ void affichage(bool **liste, int taille)
     printf("\n");
 }
 
+bool **matriceAdjacence(int *tableauDeSommets, File *fileDePredecesseurs)
+{
+    
+}
+
 Graphe *initialisationGraphe(int nbrSommets, int *tableauDuree, File **predecesseurs) 
 {
     Graphe *monGraphe = malloc(sizeof(*monGraphe));

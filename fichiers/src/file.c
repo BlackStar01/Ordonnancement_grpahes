@@ -28,8 +28,6 @@ File *initialisationFile()
     return File;
 }
 
-
-
 void enfiler(File *file, int numberToAdd)
 {
     Element *newElement = malloc(sizeof(*newElement));
@@ -95,6 +93,30 @@ void afficherFile(File *File)
         actuel = actuel->suivant;
     }
     printf("NULL\n");
+}
+
+File *copieFile(File *fileOriginale)
+{
+    File *fileTemporaire = initialisationFile();
+    File *copieFile = initialisationFile();
+    while (fileOriginale->firstElement != NULL)
+    {
+        int elementDefile = defiler(fileOriginale);
+        enfiler(fileTemporaire, elementDefile);
+        enfiler(copieFile, elementDefile);
+    }
+    /*  
+        Pour ramener tous les elements dans la file originale.... 
+        vu qu'ils seront supprimés après la première boucle 
+        Ca va egalement supprimer les elements de la file temporaire vu qu'on défile
+    */
+    while (fileTemporaire->firstElement != NULL)
+    {
+        int elementDefile = defiler(fileTemporaire);
+        enfiler(fileOriginale, elementDefile);
+    }
+
+    return copieFile;
 }
 
 
