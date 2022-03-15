@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "file.c"
 
 int nbrSommets()
 {       
@@ -84,13 +85,11 @@ int *tableauDurees(File *uneFile)
 File *fileDePredecesseurs(File *uneFile)
 {
     File *f1 = initialisationFile();
-    f1 = uneFile;
-    
-    File *fileDePredecesseurs = malloc(nbrSommets() * sizeof(int));
     f1 = copieFile(uneFile);
-    /* On fait une copie pour éviter de perdre des données ... On travaillera avec la copie du coup */
-
+    
     File *fileDePredecesseurs = initialisationFile();
+    /* On fait une copie pour éviter de perdre des données ... On travaillera avec la copie du coup */
+    
     int compt = 0;
     while (f1->firstElement!=NULL)
     {
@@ -108,7 +107,7 @@ File *fileDePredecesseurs(File *uneFile)
         /*
             -1 représente le séparateur de notre file 
         */
-
+        
         int alpha = defiler(f1);
         if (alpha == -1)
         {
@@ -121,6 +120,30 @@ File *fileDePredecesseurs(File *uneFile)
     return fileDePredecesseurs;
 } 
 
+/*--------------------Conversion file de predecesseurs en tableau de prédécesseurs-----*/
+
+File **TabDePredecesseurs(File *fileDePredecesseurs)
+{
+    File *f1 = initialisationFile();
+    /* On fait une copie pour éviter de perdre des données ... On travaillera avec la copie du coup */
+    f1 = copieFile(fileDePredecesseurs);
+    
+    File **TabDePredecesseurs = malloc(nbrSommets() * sizeof(File));
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        TabDePredecesseurs[i] = initialisationFile();
+        int el = defiler(f1);
+        while(el != -1){
+            enfiler(TabDePredecesseurs[i], el);
+            el = defiler(f1);
+        }
+        
+    } 
+    
+    return TabDePredecesseurs;
+} 
+
+/* -------------------Recuperer les données du fichier-----------------------------*/
 File *recupererDonnees(FILE *fichier)
 {
     File *maFile = initialisationFile();
@@ -152,4 +175,3 @@ File *recupererDonnees(FILE *fichier)
     
     return maFile;
 }
-

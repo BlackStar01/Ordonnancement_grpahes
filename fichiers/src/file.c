@@ -36,10 +36,10 @@ void enfiler(File *file, int numberToAdd)
         perror("Erreur lors de l'ajout de l'element\n");
         exit(EXIT_FAILURE);
     }
-
+    
     newElement->nombre = numberToAdd;
     newElement->suivant = NULL;
-
+    
     if (file->firstElement != NULL) /* La file n'est pas vide */
     {
         /* On se positionne à la fin de la file */
@@ -95,6 +95,30 @@ void afficherFile(File *File)
     printf("NULL\n");
 }
 
+
+int nbrElementsFile(File *file){
+    int compt = 0;
+    if (file == NULL)
+    {
+        perror("Erreur lors de l'operation\n");
+        exit(EXIT_FAILURE);
+    }
+    if (file ->firstElement == NULL)
+    {
+        return 0;
+    }
+    
+    Element *currentElement = malloc(sizeof(Element));
+    currentElement = file->firstElement;
+    /*  On compte le nombre d'elements*/
+    while (currentElement != NULL)
+    {
+        currentElement = currentElement->suivant;
+        compt++;
+    }
+    
+    return compt;
+}
 File *copieFile(File *fileOriginale)
 {
     File *fileTemporaire = initialisationFile();
@@ -115,27 +139,6 @@ File *copieFile(File *fileOriginale)
         int elementDefile = defiler(fileTemporaire);
         enfiler(fileOriginale, elementDefile);
     }
-
+    
     return copieFile;
-}
-
-
-int nbrElementsFile(File *file){
-    int compt = 0;
-    if (file ->firstElement == NULL)
-    {
-        perror("Erreur lors de l'operation\n");
-        exit(EXIT_FAILURE);
-    }
-    
-    Element *currentElement = malloc(sizeof(Element));
-    currentElement = file->firstElement;
-    /*  On compte le nombre d'elements*/
-    while (currentElement != NULL)
-    {
-        currentElement = currentElement->suivant;
-        compt++;
-    }
-    
-    return compt;
 }
