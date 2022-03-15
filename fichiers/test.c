@@ -6,11 +6,16 @@ int main(int argc, char const *argv[])
     FILE *fichier1 = fopen("./test.txt", "r");
     
     File *data = recupererDonnees(fichier1);
+    File *data_temporaire = copieFile(data);
 
     afficherFile(data);
+    printf("\n\n");
 
-    printf("%d \n", nbrSommets());
-    tableauDurees(data);
+    afficherFile(data);
+    printf("\n\n");
+
+    afficherFile(data_temporaire);
+    printf("\n\n");
     
     return 0;
 }

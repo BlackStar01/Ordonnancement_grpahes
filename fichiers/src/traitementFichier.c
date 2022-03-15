@@ -3,7 +3,7 @@
 #include <string.h>
 
 int nbrSommets()
-{
+{       
     FILE *ourFile = fopen("../fichiers/test.txt", "r");
     char character;
     int compt = 1;
@@ -27,10 +27,35 @@ int nbrSommets()
     return compt;
 }
 
+int *tableauDeSommets(File *uneFile)
+{
+    File *f1 = initialisationFile();
+    f1 = copieFile(uneFile);
+    int i = 1, *tab = malloc(nbrSommets()*sizeof(int));
+
+    tab[0] = defiler(f1);
+
+    while (f1->firstElement->suivant!=NULL)
+    {   
+        if (defiler(f1) == -1)
+        {
+            int temp = defiler(f1);
+            if (temp != -1)
+            {
+                tab[i] = temp;
+                i++;
+            }
+        }
+    }
+    tab[i] = '\0';
+    return tab;
+}
+
+
 int *tableauDurees(File *uneFile)
 {
     File *f1 = initialisationFile();
-    f1 = uneFile;
+    f1 = copieFile(uneFile);
     int i = 1, *tab = malloc(nbrSommets()*sizeof(int));
     
     
@@ -52,25 +77,38 @@ int *tableauDurees(File *uneFile)
         printf("%d - ", tab[k]);
     } */
     
+    tab[i] = '\0';
     return tab;
 }
 
-File *tableauPredecesseurs(File *uneFile)
+File *fileDePredecesseurs(File *uneFile)
 {
     File *f1 = initialisationFile();
     f1 = uneFile;
     
     File *fileDePredecesseurs = malloc(nbrSommets() * sizeof(int));
+    f1 = copieFile(uneFile);
+    /* On fait une copie pour éviter de perdre des données ... On travaillera avec la copie du coup */
+
+    File *fileDePredecesseurs = initialisationFile();
     int compt = 0;
     while (f1->firstElement!=NULL)
     {
         if (compt == 0)
         {
+            /* 
+                On défile deux fois pour enlever le premier element de la file (sommet) 
+                Et le deuxieme element ... qui est la durée
+            */
             defiler(f1);
             defiler(f1);
             compt++;
         }
         
+        /*
+            -1 représente le séparateur de notre file 
+        */
+
         int alpha = defiler(f1);
         if (alpha == -1)
         {
@@ -114,3 +152,4 @@ File *recupererDonnees(FILE *fichier)
     
     return maFile;
 }
+
