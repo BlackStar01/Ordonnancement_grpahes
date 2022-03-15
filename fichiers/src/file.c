@@ -17,13 +17,13 @@ struct File
 File *initialisationFile()
 {
     File *File = malloc(sizeof(*File));
-
+    
     if (File == NULL)
     {
         perror("Erreur d'initialisation\n");
         exit(EXIT_FAILURE);
     }
-
+    
     File->firstElement = NULL;
     return File;
 }
@@ -64,18 +64,18 @@ int defiler(File *file)
     {
         exit(EXIT_FAILURE);
     }
-
+    
     int nombreDefile = 0;
-
+    
     if (file->firstElement != NULL)
     {
         Element *elementDefile = file->firstElement;
-
+        
         nombreDefile = elementDefile->nombre;
         file->firstElement = elementDefile->suivant;
         free(elementDefile);
     }
-
+    
     return nombreDefile;
 }
 
@@ -86,9 +86,9 @@ void afficherFile(File *File)
         perror("Rien à efficher\n");
         exit(EXIT_FAILURE);
     }
-
+    
     Element *actuel = File->firstElement;
-
+    
     while (actuel != NULL)
     {
         printf("%d -> ", actuel->nombre);
@@ -105,7 +105,7 @@ int nbrElementsFile(File *file){
         perror("Erreur lors de l'operation\n");
         exit(EXIT_FAILURE);
     }
-
+    
     Element *currentElement = malloc(sizeof(Element));
     currentElement = file->firstElement;
     /*  On compte le nombre d'elements*/
@@ -114,6 +114,6 @@ int nbrElementsFile(File *file){
         currentElement = currentElement->suivant;
         compt++;
     }
-
+    
     return compt;
 }

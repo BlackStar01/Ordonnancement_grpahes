@@ -29,61 +29,78 @@ void affichage(bool **liste, int taille)
 
 Graphe *initialisationGraphe(int nbrSommets, int *tableauDuree, File **predecesseurs) 
 {
-    Graphe *monGraphe = malloc(sizeof(*monGraphe));
+    Graphe *monGraphe = malloc(sizeof(Graphe));
     if (monGraphe == NULL)
     {
         perror("Erreur lors de la création du graphe");
         exit(EXIT_FAILURE);
     }
     monGraphe->nbrSommets = nbrSommets;
-
+    
     /*----------------Remplissage du tableau de durees----------------*/
-
+    
     monGraphe->tableauDuree = malloc(nbrSommets * sizeof(int));
     for (int i = 0; i < nbrSommets; i++)
     {
         monGraphe->tableauDuree[i] = tableauDuree[i];
     }
-
+    
     /*------------Remplissage de la matrice d'adjacence---------------*/
     //monGraphe->matriceAdjacence = malloc(nbrSommets *sizeof(bool));
-    int sommetTemporaire = 0;
+    
+    int p,sommetTemporaire = 0;
+    
+    /*On met déjà tous les elements à 0*/
+    for (int i = 0; i < monGraphe->nbrSommets; i++)
+    {
+        for (int j = 0; j < monGraphe->nbrSommets; j++)
+        {
+            monGraphe->matriceAdjacence[i][j] = 0;
+        }
+        
+    }
+    
     printf("Remplissage de la matrice d'adjacence ... \n");
+    
     /*sleep(2)*/;
+    
     for (int i = 0; i < nbrSommets; i++)
     {
         monGraphe->matriceAdjacence[i] = malloc(nbrSommets * sizeof(bool));
-
-        while (predecesseurs[i]->firstElement != NULL)
+        Element *firstElement = malloc(sizeof(Element));
+        firstElement = predecesseurs[i]->firstElement;        
+        while (firstElement != NULL)
         {
             sommetTemporaire = defiler(predecesseurs[i]);
-            monGraphe->matriceAdjacence[i][sommetTemporaire - 1] = 1;
-            
+            defiler(predecesseurs[i]);
+            while(firstElement != NULL){
+                p = defiler(predecesseurs[i]);
+                monGraphe->matriceAdjacence[p - 1][sommetTemporaire - 1] = 1;
+            }
         }
     }
-
+    
     printf("Initialisation effectuée ... \n");
 
 }
 
-
-Graphe *copie(Graphe *model)
+Graphe *copieG(Graphe *model)
 {
     int nbrSommets = model->nbrSommets;
     Graphe *monGraphe = malloc(sizeof(monGraphe));
-
+    
     monGraphe->tableauDuree = malloc(nbrSommets * sizeof(int));
-
+    
     monGraphe->matriceAdjacence = malloc(nbrSommets * sizeof(bool));
-
+    
     monGraphe->nbrSommets = model->nbrSommets;
-
+    
     /* Copie du tableau de durées */
     for (int i = 0; i < nbrSommets; i++)
     {
         monGraphe->tableauDuree[i] = model->tableauDuree[i];
     }
-
+    
     /* Copie de la matrice d'adjacence */
     for (int i = 0; i < nbrSommets; i++)
     {
@@ -93,6 +110,6 @@ Graphe *copie(Graphe *model)
             monGraphe->matriceAdjacence[i][j] = model->matriceAdjacence[i][j];
         }
     }
-
+    
     return monGraphe;
 }

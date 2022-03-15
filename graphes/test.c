@@ -12,7 +12,10 @@ int main(int argc, char const *argv[])
     
     afficherFile(data);
     afficherFile(tableauPredecesseurs(data));
-        printf("\n\n");
-
+    printf("\n\n");
+    
+    Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(tableauPredecesseurs(data)),tableauPredecesseurs(data));
+    affichage(g->matriceAdjacence,g->nbrSommets);
     return 0;
 }
+

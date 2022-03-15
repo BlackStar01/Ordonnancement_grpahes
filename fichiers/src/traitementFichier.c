@@ -13,7 +13,7 @@ int nbrSommets()
         printf("File does not exist!!!\n");
         return -1;
     }
-
+    
     while ((character = fgetc(ourFile)) != EOF)
     {
         if (character == '\n')
@@ -21,7 +21,7 @@ int nbrSommets()
             compt++;
         }    
     }
-
+    
     fclose(ourFile);
     
     return compt;
@@ -32,14 +32,14 @@ int *tableauDurees(File *uneFile)
     File *f1 = initialisationFile();
     f1 = uneFile;
     int i = 1, *tab = malloc(nbrSommets()*sizeof(int));
-
-
+    
+    
     defiler(f1);
     tab[0] = defiler(f1);
-
+    
     while (f1->firstElement->suivant!=NULL)
     {   
-        if (defiler(f1) == 980)
+        if (defiler(f1) == -1)
         {
             defiler(f1);
             tab[i] = defiler(f1);
@@ -51,7 +51,7 @@ int *tableauDurees(File *uneFile)
     {
         printf("%d - ", tab[k]);
     } */
-
+    
     return tab;
 }
 
@@ -59,8 +59,8 @@ File *tableauPredecesseurs(File *uneFile)
 {
     File *f1 = initialisationFile();
     f1 = uneFile;
-
-    File *fileDePredecesseurs = initialisationFile();
+    
+    File *fileDePredecesseurs = malloc(nbrSommets() * sizeof(int));
     int compt = 0;
     while (f1->firstElement!=NULL)
     {
@@ -70,20 +70,16 @@ File *tableauPredecesseurs(File *uneFile)
             defiler(f1);
             compt++;
         }
-
+        
         int alpha = defiler(f1);
-        if (alpha == 980)
+        if (alpha == -1)
         {
             defiler(f1);
             defiler(f1);
-            enfiler(fileDePredecesseurs, 980); // Peut être effacé pour avoir le tableau normal
         }
-        else
-        { 
-            enfiler(fileDePredecesseurs, alpha);
-        }
+        enfiler(fileDePredecesseurs, alpha);       
     }    
-
+    
     return fileDePredecesseurs;
 } 
 
@@ -92,12 +88,12 @@ File *recupererDonnees(FILE *fichier)
     File *maFile = initialisationFile();
     int i = 0;
     char c[20];
-
+    
     if (fichier == NULL)
     {
         perror("Erreur d'ouverture du fichier\n");
     }
-
+    
     while (fscanf(fichier, "%[^\n]%*c", c) != EOF)
     {
         char *token = strtok(c, " "); /* Il fonctionne comme un split en javascript */
@@ -107,14 +103,14 @@ File *recupererDonnees(FILE *fichier)
             token = strtok(NULL, " ");
             i++;
         }
-        enfiler(maFile, 980);
+        enfiler(maFile, -1);
         i++;
     }
-
+    
     if (fclose(fichier) == EOF)
     {
         perror("Erreur de fermerture du fichier");
     }
-
+    
     return maFile;
 }
