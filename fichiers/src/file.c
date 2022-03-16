@@ -17,13 +17,13 @@ struct File
 File *initialisationFile()
 {
     File *File = malloc(sizeof(*File));
-
+    
     if (File == NULL)
     {
         perror("Erreur d'initialisation\n");
         exit(EXIT_FAILURE);
     }
-
+    
     File->firstElement = NULL;
     return File;
 }
@@ -36,10 +36,10 @@ void enfiler(File *file, int numberToAdd)
         perror("Erreur lors de l'ajout de l'element\n");
         exit(EXIT_FAILURE);
     }
-
+    
     newElement->nombre = numberToAdd;
     newElement->suivant = NULL;
-
+    
     if (file->firstElement != NULL) /* La file n'est pas vide */
     {
         /* On se positionne à la fin de la file */
@@ -62,18 +62,18 @@ int defiler(File *file)
     {
         exit(EXIT_FAILURE);
     }
-
+    
     int nombreDefile = 0;
-
+    
     if (file->firstElement != NULL)
     {
         Element *elementDefile = file->firstElement;
-
+        
         nombreDefile = elementDefile->nombre;
         file->firstElement = elementDefile->suivant;
         free(elementDefile);
     }
-
+    
     return nombreDefile;
 }
 
@@ -84,9 +84,9 @@ void afficherFile(File *File)
         perror("Rien à efficher\n");
         exit(EXIT_FAILURE);
     }
-
+    
     Element *actuel = File->firstElement;
-
+    
     while (actuel != NULL)
     {
         printf("%d -> ", actuel->nombre);
@@ -122,12 +122,16 @@ File *copieFile(File *fileOriginale)
 
 int nbrElementsFile(File *file){
     int compt = 0;
-    if (file ->firstElement == NULL)
+    if (file == NULL)
     {
         perror("Erreur lors de l'operation\n");
         exit(EXIT_FAILURE);
     }
-
+    if (file ->firstElement == NULL)
+    {
+        return 0;
+    }
+    
     Element *currentElement = malloc(sizeof(Element));
     currentElement = file->firstElement;
     /*  On compte le nombre d'elements*/
@@ -136,6 +140,29 @@ int nbrElementsFile(File *file){
         currentElement = currentElement->suivant;
         compt++;
     }
-
+    
     return compt;
+}
+File *copieFile(File *fileOriginale)
+{
+    File *fileTemporaire = initialisationFile();
+    File *copieFile = initialisationFile();
+    while (fileOriginale->firstElement != NULL)
+    {
+        int elementDefile = defiler(fileOriginale);
+        enfiler(fileTemporaire, elementDefile);
+        enfiler(copieFile, elementDefile);
+    }
+    /*  
+        Pour ramener tous les elements dans la file originale.... 
+        vu qu'ils seront supprimés après la première boucle 
+        Ca va egalement supprimer les elements de la file temporaire vu qu'on défile
+    */
+    while (fileTemporaire->firstElement != NULL)
+    {
+        int elementDefile = defiler(fileTemporaire);
+        enfiler(fileOriginale, elementDefile);
+    }
+    
+    return copieFile;
 }
