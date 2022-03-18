@@ -11,16 +11,26 @@ struct Graphe
     bool **matriceAdjacence;
 };
 
+void yellow() {
+  printf("\033[1;33m");
+}
+void resetColor()
+{
+    printf("\033[0m");
+}
+
 /* ----------- Affichage de la matrice d'ajacence ------------  */
 
-void affichage(bool **liste, int taille)
+void afficherMatrice(bool **liste, int taille)
 {
     printf("\nAffichage de la matrice d'adjacence\n");
     for (int i = 0; i < taille; i++)
     {
         for (int j = 0; j < taille; j++)
         {
+            yellow();
             printf(" %d ", liste[i][j]);
+            resetColor();
         }
         printf("\n");
     }
@@ -29,7 +39,6 @@ void affichage(bool **liste, int taille)
 Graphe *initialisationGraphe(int nbrSommets, int *tableauDuree, File *predecesseurs) 
 {
     Graphe *monGraphe = malloc(sizeof(*monGraphe));
-    
     monGraphe->nbrSommets = nbrSommets;
     
     /*----------------Remplissage du tableau de durees----------------*/
@@ -45,45 +54,42 @@ Graphe *initialisationGraphe(int nbrSommets, int *tableauDuree, File *predecesse
     monGraphe->matriceAdjacence = (bool **)malloc(nbrSommets * sizeof(int*));
     
     
-    File **TabP = malloc(nbrSommets * sizeof(File));
+    File **TabPredecesseurs = malloc(nbrSommets * sizeof(File));
     /* Conversion de la file en tableau de files (car sera plus facile à manipuler pour la matrice) /
-     */
-    /*On met déjà tous les elements à 0*/
+        On met déjà tous les elements à 0*/
     for(int i = 0; i < nbrSommets; i++) 
     {
         monGraphe->matriceAdjacence[i] = (bool *)malloc(nbrSommets * sizeof(int));
-        TabP[i] = initialisationFile();
+        TabPredecesseurs[i] = initialisationFile();
         for(int j = 0; j < nbrSommets; j++)
         {
             monGraphe->matriceAdjacence[i][j] = 0;
         }
     }
     
-    TabP = TabDePredecesseurs(predecesseurs);
+    TabPredecesseurs = ConvertEnTabDeFile(predecesseurs);
     
     printf("Remplissage de la matrice d'adjacence ... \n");
+    /* sleep(3); */
         
     for (int i = 0; i < nbrSommets; i++)
     {       
         
-        if (nbrElementsFile(TabP[i]) == 0) continue;
+        if (nbrElementsFile(TabPredecesseurs[i]) == 0) continue;
         
-        while (TabP[i]->firstElement != NULL)
+        while (TabPredecesseurs[i]->firstElement != NULL)
         {
-            int cpt = 0;
-            while (cpt < nbrElementsFile(TabP[i]))
+            int compteur = 0;
+            while (compteur < nbrElementsFile(TabPredecesseurs[i]))
             {
-                p = defiler(TabP[i]);
-                monGraphe->matriceAdjacence[p - 1][i] = 1;
-                cpt++;
+                p = defiler(TabPredecesseurs[i]);
+                monGraphe->matriceAdjacence[p - 1][i] = 1;                
+                compteur++;
             }
         }
     }  
-    
     printf("Initialisation effectuée ... \n");
-    
     return monGraphe;
-
 }
 
 int **copieTableau(int **Tableau){

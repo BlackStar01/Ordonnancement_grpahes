@@ -11,7 +11,7 @@ int nbrSommets()
     
     if (ourFile == NULL)
     {
-        printf("File does not exist!!!\n");
+        perror("File does not exist!!!\n");
         return -1;
     }
     
@@ -26,6 +26,61 @@ int nbrSommets()
     fclose(ourFile);
     
     return compt;
+}
+
+
+bool detectionPointEntreeUnique(File *uneFile)
+{
+    File *f1 = initialisationFile();
+    f1 = copieFile(uneFile);
+
+    bool result = true;
+    int compt = 0, nbrPointsDetectes = 0;
+    while (f1->firstElement->suivant != NULL)
+    {   
+        if (defiler(f1) != -1)
+        {
+            compt++;
+        }
+        else
+        {
+            if (compt == 2)
+            {
+                nbrPointsDetectes++;
+            }
+            compt = 0;
+        }
+    }
+    if (nbrPointsDetectes != 1)
+    {
+        result = false;        
+    }
+
+    /* Elle retourne  0 quand le resultat est faux et 1 quand c'est vrai ...*/
+    return result;
+}
+
+bool detectionCircuit(bool **matriceAdjacence)
+{
+    bool result = false;
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        for (int j = 0; j < nbrSommets(); j++)
+        {
+            if (i == j)
+            {
+                if (matriceAdjacence[i][j] == 1)
+                {
+                    printf("Circuit detecté...\n");
+                    result = true;
+                    goto escapeLoop;
+                }           
+            }   
+        }
+    }
+    escapeLoop:
+    /* Elle retourne  0 quand le resultat est faux et 1 quand c'est vrai ...*/
+    return result;
 }
 
 int *tableauDeSommets(File *uneFile)
@@ -52,7 +107,6 @@ int *tableauDeSommets(File *uneFile)
     return tab;
 }
 
-
 int *tableauDurees(File *uneFile)
 {
     File *f1 = initialisationFile();
@@ -72,11 +126,6 @@ int *tableauDurees(File *uneFile)
             i++;
         }
     }
-    
-    /* for (int k = 0; k < nbrSommets(); k++)
-    {
-        printf("%d - ", tab[k]);
-    } */
     
     tab[i] = '\0';
     return tab;
@@ -120,27 +169,27 @@ File *fileDePredecesseurs(File *uneFile)
     return fileDePredecesseurs;
 } 
 
-/*--------------------Conversion file de predecesseurs en tableau de prédécesseurs-----*/
+/*-------------------- Conversion file en tableau de File -------------------*/
 
-File **TabDePredecesseurs(File *fileDePredecesseurs)
+File **ConvertEnTabDeFile(File *uneFile)
 {
     File *f1 = initialisationFile();
     /* On fait une copie pour éviter de perdre des données ... On travaillera avec la copie du coup */
-    f1 = copieFile(fileDePredecesseurs);
+    f1 = copieFile(uneFile);
     
-    File **TabDePredecesseurs = malloc(nbrSommets() * sizeof(File));
+    File **TabDeFiles = malloc(nbrSommets() * sizeof(File));
     for (int i = 0; i < nbrSommets(); i++)
     {
-        TabDePredecesseurs[i] = initialisationFile();
+        TabDeFiles[i] = initialisationFile();
         int el = defiler(f1);
         while(el != -1){
-            enfiler(TabDePredecesseurs[i], el);
+            enfiler(TabDeFiles[i], el);
             el = defiler(f1);
         }
         
     } 
     
-    return TabDePredecesseurs;
+    return TabDeFiles;
 } 
 
 /* -------------------Recuperer les données du fichier-----------------------------*/
