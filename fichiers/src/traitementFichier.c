@@ -83,6 +83,11 @@ bool detectionCircuit(bool **matriceAdjacence)
     return result;
 }
 
+bool detectionPointSortieUnique(bool **matriceAdjacence)
+{
+    
+}
+
 int *tableauDeSommets(File *uneFile)
 {
     File *f1 = initialisationFile();

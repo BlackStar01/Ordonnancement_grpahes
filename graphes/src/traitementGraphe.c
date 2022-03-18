@@ -23,14 +23,38 @@ void resetColor()
 
 void afficherMatrice(bool **liste, int taille)
 {
-    printf("\nAffichage de la matrice d'adjacence\n");
+    printf("\nAffichage de la matrice d'adjacence\n\n");
+    printf("     ");
+    for (int j = 0; j < taille; j++)
+    {
+        if (j < 9)
+        {
+           printf("%d    ", j+1);
+        }
+        else
+        {
+           printf("%d  ", j+1);
+        }
+        
+    }
+    printf("\n\n");
     for (int i = 0; i < taille; i++)
     {
+        if (i < 9)
+        {
+            printf("%d  ", i+1);
+        }
+        else
+        {
+            printf("%d ", i+1);
+        }
+        
         for (int j = 0; j < taille; j++)
         {
             yellow();
-            printf(" %d ", liste[i][j]);
+            printf("  %d  ", liste[i][j]);
             resetColor();
+            /* printf("%d ", j); */
         }
         printf("\n");
     }
