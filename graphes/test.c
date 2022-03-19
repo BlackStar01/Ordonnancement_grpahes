@@ -20,19 +20,10 @@ int main(int argc, char const *argv[])
     Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(data),fileP);
     afficherMatriceBooleenne(g->matriceAdjacence, nbrSommets());
     afficherMatriceNormale(g->matriceValeurs, nbrSommets());
+    
     printf("\n\n");
     printf("%d", detectionCircuit(g->matriceAdjacence));
-
-    int *tab = tableauDurees(data);
-    detectionArcNegatif(tab);
-
-    printf("\ntab de pred\n\n");
-    int i = 0;
-    do
-    {
-        printf("%d - ", tab[i]);
-        i++;
-    } while (tab[i] != '\0');
+    printf("%d", detectionArcNegatif(tableauDurees(data)));
 
     free(g);
     free(fileP);
