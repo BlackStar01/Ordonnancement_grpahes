@@ -85,7 +85,25 @@ bool detectionCircuit(bool **matriceAdjacence)
 
 bool detectionPointSortieUnique(bool **matriceAdjacence)
 {
-    
+
+}
+
+bool detectionArcNegatif(int *tab)
+{
+    bool result = false;
+    int i = 0;
+    while (tab[i] != '\0')
+    {
+        if (tab[i] < 0)
+        {
+            printf("Arc negatif repéré ... \n");
+            result = true;
+            break;
+        }
+        i++;
+    }
+
+    return result;
 }
 
 int *tableauDeSommets(File *uneFile)
@@ -118,10 +136,9 @@ int *tableauDurees(File *uneFile)
     f1 = copieFile(uneFile);
     int i = 1, *tab = malloc(nbrSommets()*sizeof(int));
     
-    
     defiler(f1);
     tab[0] = defiler(f1);
-    
+
     while (f1->firstElement->suivant!=NULL)
     {   
         if (defiler(f1) == -1)
@@ -133,6 +150,7 @@ int *tableauDurees(File *uneFile)
     }
     
     tab[i] = '\0';
+    
     return tab;
 }
 

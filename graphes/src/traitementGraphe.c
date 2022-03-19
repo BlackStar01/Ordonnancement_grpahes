@@ -14,6 +14,9 @@ struct Graphe
 void yellow() {
   printf("\033[1;33m");
 }
+void red() {
+  printf("\033[1;31m");
+}
 void resetColor()
 {
     printf("\033[0m");
@@ -27,15 +30,15 @@ void afficherMatrice(bool **liste, int taille)
     printf("     ");
     for (int j = 0; j < taille; j++)
     {
+        
         if (j < 9)
         {
            printf("%d    ", j+1);
         }
         else
         {
-           printf("%d  ", j+1);
-        }
-        
+           printf("%d   ", j+1);
+        }   
     }
     printf("\n\n");
     for (int i = 0; i < taille; i++)
@@ -51,12 +54,22 @@ void afficherMatrice(bool **liste, int taille)
         
         for (int j = 0; j < taille; j++)
         {
-            yellow();
-            printf("  %d  ", liste[i][j]);
-            resetColor();
+            if (liste[i][j] != 1)
+            {
+                red();
+                printf("  %d  ", liste[i][j]);
+                resetColor();
+            }
+            else
+            {
+                yellow();
+                printf("  %d  ", liste[i][j]);
+                resetColor();
+            }
+            
             /* printf("%d ", j); */
         }
-        printf("\n");
+        printf("\n\n");
     }
 }
 
@@ -72,6 +85,7 @@ Graphe *initialisationGraphe(int nbrSommets, int *tableauDuree, File *predecesse
     {
         monGraphe->tableauDuree[i] = tableauDuree[i];
     }
+    /* ....a corriger .... */
     
     /*------------Remplissage de la matrice d'adjacence---------------*/
     int p=0,sommetTemporaire = 0;
