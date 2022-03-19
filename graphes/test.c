@@ -18,10 +18,13 @@ int main(int argc, char const *argv[])
     printf(" \n On va initaliser now ... \n");
     
     Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(data),fileP);
-    afficherMatriceBooleenne(g->matriceAdjacence, nbrSommets());
-    afficherMatriceNormale(g->matriceValeurs, nbrSommets());
+    afficherMatriceBooleenne(g->matriceAdjacence, nbrSommets(), tableauDeSommets(data));
+    /* afficherMatriceNormale(g->matriceValeurs, nbrSommets()); */
+    printf("%d", detectionPointSortieUnique(g->matriceAdjacence));
+    printf("%d", detectionPointEntreeUnique(g->matriceAdjacence));
     
     printf("\n\n");
+    
     printf("%d", detectionCircuit(g->matriceAdjacence));
     printf("%d", detectionArcNegatif(tableauDurees(data)));
 

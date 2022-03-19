@@ -8,32 +8,31 @@ void resetColor()
 {
     printf("\033[0m");
 }
-void afficherMatriceBooleenne(bool **liste, int taille)
+void afficherMatriceBooleenne(bool **liste, int taille, int *tableauDeSommets)
 {
     printf("\nAffichage de la matrice d'adjacence\n\n");
     printf("     ");
     for (int j = 0; j < taille; j++)
     {
-        
-        if (j < 9)
+        if (tableauDeSommets[j] < 10)
         {
-           printf("%d    ", j+1);
+           printf("%d    ", tableauDeSommets[j]);
         }
         else
         {
-           printf("%d   ", j+1);
+           printf("%d   ", tableauDeSommets[j]);
         }   
     }
     printf("\n\n");
     for (int i = 0; i < taille; i++)
     {
-        if (i < 9)
+        if (tableauDeSommets[i] < 10)
         {
-            printf("%d  ", i+1);
+            printf("%d  ", tableauDeSommets[i]);
         }
         else
         {
-            printf("%d ", i+1);
+            printf("%d ", tableauDeSommets[i]);
         }
         
         for (int j = 0; j < taille; j++)
@@ -56,32 +55,32 @@ void afficherMatriceBooleenne(bool **liste, int taille)
         printf("\n\n");
     }
 }
-void afficherMatriceNormale(int **liste, int taille)
+void afficherMatriceNormale(int **liste, int taille, int *tableauDeSommets)
 {
     printf("\nAffichage de la matrice des valeurs \n\n");
     printf("     ");
     for (int j = 0; j < taille; j++)
     {
         
-        if (j < 9)
+        if (tableauDeSommets[j] < 10)
         {
-           printf("%d    ", j+1);
+           printf("%d    ", tableauDeSommets[j]);
         }
         else
         {
-           printf("%d   ", j+1);
+           printf("%d   ", tableauDeSommets[j]);
         }   
     }
     printf("\n\n");
     for (int i = 0; i < taille; i++)
     {
-        if (i < 9)
+        if (tableauDeSommets[i] < 9)
         {
-            printf("%d  ", i+1);
+            printf("%d  ", tableauDeSommets[i]);
         }
         else
         {
-            printf("%d ", i+1);
+            printf("%d ", tableauDeSommets[i]);
         }
         
         for (int j = 0; j < taille; j++)

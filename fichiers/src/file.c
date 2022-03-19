@@ -119,7 +119,6 @@ File *copieFile(File *fileOriginale)
     return copieFile;
 }
 
-
 int nbrElementsFile(File *file){
     int compt = 0;
     if (file == NULL)
