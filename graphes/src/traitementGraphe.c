@@ -21,13 +21,13 @@ Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecess
     int p=0, valeur = 0, sommetTemporaire = 0;
     
     /*----------------Remplissage de la matrice de valeurs-------------*/
-    File* copiePredecesseurs = copieFile(predecesseurs);
-    Element* Element = copiePredecesseurs->firstElement;
-    afficherFile(copiePredecesseurs);
-    monGraphe->matriceValeurs = malloc(nbrSommets * sizeof(int*));
+    File* copieFileDePredecesseurs = copieFile(predecesseurs);
+
+    afficherFile(copieFileDePredecesseurs);
+    monGraphe->matriceValeurs = (int **)malloc(nbrSommets * sizeof(int*));
     for(int i = 0; i < nbrSommets; i++) 
     {
-        monGraphe->matriceValeurs[i] = malloc(nbrSommets * sizeof(int));
+        monGraphe->matriceValeurs[i] = (int *)malloc(nbrSommets * sizeof(int));
         for(int j = 0; j < nbrSommets; j++)
         {
             monGraphe->matriceValeurs[i][j] = 0;
@@ -35,22 +35,22 @@ Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecess
     }
     /*-----------On initialise et on met toutes les valeurs à 0-------*/
     printf("\nRemplissage  matrice  des  valeurs ...\n");
-    while (Element != NULL)
+    while (copieFileDePredecesseurs->firstElement->suivant != NULL)
     {
-        if (Element->nombre == -1)
+        int a = copieFileDePredecesseurs->firstElement->nombre;
+        if (a == -1)
         {
             sommetTemporaire++;
-            defiler(copiePredecesseurs);
+            defiler(copieFileDePredecesseurs);
         }
-        
-        while (Element->nombre != -1)
+        else
         {
-            p = defiler(copiePredecesseurs);
+            p = defiler(copieFileDePredecesseurs);
             valeur = tableauDurees[p - 1];
-            monGraphe->matriceValeurs[p - 1][sommetTemporaire] = valeur;                
+            monGraphe->matriceValeurs[p - 1][sommetTemporaire] = valeur;
         }
+        copieFileDePredecesseurs->firstElement = copieFileDePredecesseurs->firstElement->suivant;
     }
-    /* ....a corriger .... */
     
     
     /*------------Remplissage de la matrice d'adjacence---------------*/

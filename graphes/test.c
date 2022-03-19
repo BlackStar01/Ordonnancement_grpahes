@@ -10,16 +10,12 @@ int main(int argc, char const *argv[])
     printf("\n Affichage de toutes les données : \n");    
     afficherFile(data);
     
-    printf("\n Tableau de predecesseurs : \n");
+    printf("\n File de predecesseurs : \n");
     File *fileP = initialisationFile();
     fileP = fileDePredecesseurs(data);
     afficherFile(fileP);
 
     printf(" \n On va initaliser now ... \n");
-    for (int i = 0; i < 11; i++)
-    {
-        printf("%d\n",tableauDurees(data)[i]);
-    }
     
     Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(data),fileP);
     afficherMatriceBooleenne(g->matriceAdjacence, nbrSommets());

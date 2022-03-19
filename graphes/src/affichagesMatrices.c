@@ -86,7 +86,7 @@ void afficherMatriceNormale(int **liste, int taille)
         
         for (int j = 0; j < taille; j++)
         {
-            if (liste[i][j] != 1)
+            if (liste[i][j] != 0)
             {
                 red();
                 printf("  %d  ", liste[i][j]);
