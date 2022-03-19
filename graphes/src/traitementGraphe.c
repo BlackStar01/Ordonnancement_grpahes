@@ -7,7 +7,7 @@ typedef struct Graphe Graphe;
 struct Graphe
 {
     int nbrSommets;
-    int *tableauDuree;
+    int **matriceValeurs;
     bool **matriceAdjacence;
 };
 
@@ -24,7 +24,7 @@ void resetColor()
 
 /* ----------- Affichage de la matrice d'ajacence ------------  */
 
-void afficherMatrice(bool **liste, int taille)
+void afficherMatrice(int **liste, int taille)
 {
     printf("\nAffichage de la matrice d'adjacence\n\n");
     printf("     ");
@@ -73,22 +73,46 @@ void afficherMatrice(bool **liste, int taille)
     }
 }
 
-Graphe *initialisationGraphe(int nbrSommets, int *tableauDuree, File *predecesseurs) 
+Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecesseurs) 
 {
     Graphe *monGraphe = malloc(sizeof(*monGraphe));
     monGraphe->nbrSommets = nbrSommets;
+    int p=0, valeur = 0, sommetTemporaire = 0;
     
-    /*----------------Remplissage du tableau de durees----------------*/
-    
-    monGraphe->tableauDuree = malloc(nbrSommets * sizeof(int));
-    for (int i = 0; i < nbrSommets; i++)
+    /*----------------Remplissage de la matrice de valeurs-------------*/
+    File* copiePredecesseurs = copieFile(predecesseurs);
+    Element* Element = copiePredecesseurs->firstElement;
+    afficherFile(copiePredecesseurs);
+    monGraphe->matriceValeurs = malloc(nbrSommets * sizeof(int*));
+    for(int i = 0; i < nbrSommets; i++) 
     {
-        monGraphe->tableauDuree[i] = tableauDuree[i];
+        monGraphe->matriceValeurs[i] = malloc(nbrSommets * sizeof(int));
+        for(int j = 0; j < nbrSommets; j++)
+        {
+            monGraphe->matriceValeurs[i][j] = 0;
+        }
+    }
+    /*-----------On initialise et on met toutes les valeurs à 0-------*/
+    printf("\nRemplissage  matrice  des  valeurs ...\n");
+    while (Element != NULL)
+    {
+        if (Element->nombre == -1)
+        {
+            sommetTemporaire++;
+            defiler(copiePredecesseurs);
+        }
+        
+        while (Element->nombre != -1)
+        {
+            p = defiler(copiePredecesseurs);
+            valeur = tableauDurees[p - 1];
+            monGraphe->matriceValeurs[p - 1][sommetTemporaire] = valeur;                
+        }
     }
     /* ....a corriger .... */
     
+    
     /*------------Remplissage de la matrice d'adjacence---------------*/
-    int p=0,sommetTemporaire = 0;
     monGraphe->matriceAdjacence = (bool **)malloc(nbrSommets * sizeof(int*));
     
     
@@ -148,19 +172,13 @@ Graphe *copieG(Graphe *model)
     int nbrSommets = model->nbrSommets;
     Graphe *monGraphe = malloc(sizeof(monGraphe));
     
-    monGraphe->tableauDuree = malloc(nbrSommets * sizeof(int));
+    monGraphe->matriceValeurs = malloc(nbrSommets * sizeof(int*));
     
-    monGraphe->matriceAdjacence = malloc(nbrSommets * sizeof(bool));
+    monGraphe->matriceAdjacence = (bool **)malloc(nbrSommets * sizeof(int*));
     
     monGraphe->nbrSommets = model->nbrSommets;
     
-    /* Copie du tableau de durées */
-    for (int i = 0; i < nbrSommets; i++)
-    {
-        monGraphe->tableauDuree[i] = model->tableauDuree[i];
-    }
-    
-    /* Copie de la matrice d'adjacence */
+    /* Copie de la matrice d'adjacence et la matrice de valeurs */
     for (int i = 0; i < nbrSommets; i++)
     {
         monGraphe->matriceAdjacence[i] = malloc(nbrSommets * sizeof(bool));
