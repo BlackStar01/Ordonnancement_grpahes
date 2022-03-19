@@ -16,9 +16,14 @@ int main(int argc, char const *argv[])
     afficherFile(fileP);
     
     printf(" \n On va initaliser now ... \n");
+    for (int i = 0; i < 11; i++)
+    {
+        printf("%d\n",tableauDurees(data)[i]);
+    }
+    
     Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(data),fileP);
     afficherMatrice(g->matriceAdjacence, nbrSommets());
-    
+    afficherMatrice(g->matriceValeurs, nbrSommets());
     printf("\n\n");
     printf("%d", detectionCircuit(g->matriceAdjacence));
 
