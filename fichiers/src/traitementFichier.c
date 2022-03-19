@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "file.c"
-
+    
 int nbrSommets()
 {       
     FILE *ourFile = fopen("../fichiers/test.txt", "r");

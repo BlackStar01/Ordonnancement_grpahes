@@ -22,13 +22,13 @@ int main(int argc, char const *argv[])
     }
     
     Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(data),fileP);
-    afficherMatrice(g->matriceAdjacence, nbrSommets());
-    afficherMatrice(g->matriceValeurs, nbrSommets());
+    afficherMatriceBooleenne(g->matriceAdjacence, nbrSommets());
+    afficherMatriceNormale(g->matriceValeurs, nbrSommets());
     printf("\n\n");
     printf("%d", detectionCircuit(g->matriceAdjacence));
 
     int *tab = tableauDurees(data);
-        detectionArcNegatif(tab));
+    detectionArcNegatif(tab);
 
     printf("\ntab de pred\n\n");
     int i = 0;
