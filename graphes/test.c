@@ -19,15 +19,19 @@ int main(int argc, char const *argv[])
     
     Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(data),fileP);
     afficherMatriceBooleenne(g->matriceAdjacence, nbrSommets(), tableauDeSommets(data));
-    /* afficherMatriceNormale(g->matriceValeurs, nbrSommets()); */
-    printf("%d", detectionPointSortieUnique(g->matriceAdjacence));
-    printf("%d", detectionPointEntreeUnique(g->matriceAdjacence));
+    afficherMatriceNormale(g->matriceValeurs, nbrSommets(),tableauDeSommets(data)); 
+    printf("\n%d\n", detectionPointSortieUnique(g->matriceAdjacence));
+    printf("\n%d\n", detectionPointEntreeUnique(g->matriceAdjacence));
     
     printf("\n\n");
     
-    printf("%d", detectionCircuit(g->matriceAdjacence));
-    printf("%d", detectionArcNegatif(tableauDurees(data)));
-
+    printf("\n%d\n", detectionArcNegatif(tableauDurees(data)));
+    if(detectionCircuit(g))
+    {
+        printf("\nIl y a un circuit \n");
+    }else{
+        printf("\nPas de circuit\n");
+    }
     free(g);
     free(fileP);
 

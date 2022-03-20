@@ -20,7 +20,7 @@ File *initialisationFile()
     
     if (File == NULL)
     {
-        perror("Erreur d'initialisation\n");
+        perror("Erreur d'initialisationFile\n");
         exit(EXIT_FAILURE);
     }
     
@@ -141,4 +141,30 @@ int nbrElementsFile(File *file){
     }
     
     return compt;
+}
+
+File *FileCat(File *file1,File *file2){
+    if (file1 == NULL || file2 == NULL)
+    {
+        perror("Erreur lors de la concatenation\n");
+        exit(EXIT_FAILURE);
+    }
+    File *file = initialisationFile();
+    file->firstElement = file1->firstElement;
+    if (file->firstElement != NULL) /* La file n'est pas vide */
+    {
+        Element *currentElement = malloc(sizeof(Element));
+        currentElement = file->firstElement;
+        /* On se positionne à la fin de la file */
+        while (currentElement->suivant != NULL)
+        {
+            currentElement = currentElement->suivant;
+        }
+        currentElement->suivant = file2->firstElement;
+    }
+    else /* La file est vide, notre élément est le firstElement */
+    {
+        file->firstElement = file2->firstElement;
+    }
+    return file;
 }

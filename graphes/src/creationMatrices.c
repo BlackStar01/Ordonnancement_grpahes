@@ -36,16 +36,15 @@ bool **creationMatriceAdjacence(int nbrSommets, File *predecesseurs)
             }
         }
     }  
-
+    
     return matriceAdjacence;
 }
 
-int **creationMatriceValeurs(int nbrSommets, int *tableauDurees, File *predecesseurs)
+int **creationMatriceValeurs(int nbrSommets, int *tableauDurees, bool **matriceAdjacence)
 {
     int valeur = 0, sommetTemporaire = 0;
-    File* copieFileDePredecesseurs = copieFile(predecesseurs);
     int **matriceValeurs = (int **)malloc(nbrSommets * sizeof(int*));
-
+    
     /*----------- On initialise et on met toutes les valeurs à 0 -------*/
     for(int i = 0; i < nbrSommets; i++) 
     {
@@ -55,25 +54,19 @@ int **creationMatriceValeurs(int nbrSommets, int *tableauDurees, File *predecess
             matriceValeurs[i][j] = 0;
         }
     }
-
+    
     printf("\nRemplissage  matrice  des  valeurs ...\n");
-    int p = 0;
-    while (copieFileDePredecesseurs->firstElement->suivant != NULL)
+    for (int i = 0; i < nbrSommets; i++)
     {
-        int a = copieFileDePredecesseurs->firstElement->nombre;
-        if (a == -1)
+        for (int j = 0; j < nbrSommets; j++)
         {
-            sommetTemporaire++;
-            defiler(copieFileDePredecesseurs);
+            if (matriceAdjacence[i][j] == 1) matriceValeurs[i][j] = tableauDurees[i];
+            // Un arc entre 2 sommets est symbolisé par un '1' de la matrice d'adjcence
+            // On associe chaque arc (i->j) à la la valeur du sommet prédécesseur sur l'arc(qui est i)            
         }
-        else
-        {
-            p = defiler(copieFileDePredecesseurs);
-            valeur = tableauDurees[p - 1];
-            matriceValeurs[p - 1][sommetTemporaire] = valeur;
-        }
-        copieFileDePredecesseurs->firstElement = copieFileDePredecesseurs->firstElement->suivant;
+        
     }
-
+    
+    
     return matriceValeurs;  
 }
