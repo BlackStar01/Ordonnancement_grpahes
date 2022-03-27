@@ -34,6 +34,7 @@ int main(int argc, char const *argv[])
     rangSommets(g, data);
 
     free(g);
+    data = initialisationFile();
     free(fileP);
 
     return 0;

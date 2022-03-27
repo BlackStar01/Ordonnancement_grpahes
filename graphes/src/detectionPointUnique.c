@@ -58,7 +58,6 @@ bool detectionPointSortieUnique(bool **matriceAdjacence)
             {
                 compt++;
             }
-
             if (compt == nbrSommets())
             {
                 printf("Sortie : %d \n", i + 1);
