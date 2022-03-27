@@ -27,13 +27,13 @@ Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecess
     return monGraphe;
 }
 
-int **copieTableau(int **Tableau)
+int **copieTableau(int **Tableau, int nbrSommets)
 {
-    int **copie = malloc(nbrSommets() * sizeof(int));
-    for (int i = 0; i < nbrSommets(); i++)
+    int **copie = malloc(nbrSommets * sizeof(int *));
+    for (int i = 0; i < nbrSommets; i++)
     {
-        copie[i] = malloc(nbrSommets() * sizeof(int));
-        for (int j = 0; j < nbrSommets(); j++)
+        copie[i] = malloc(nbrSommets * sizeof(int));
+        for (int j = 0; j < nbrSommets; j++)
         {
             copie[i][j] = Tableau[i][j];
         }
@@ -194,8 +194,14 @@ int compt = 1;
 
 void rangSommets(Graphe *monGraphe, File *data)
 {
+    Graphe *copieMonGraphe = malloc(sizeof(Graphe));
     File *pointsEntree = initialisationFile();
-    pointsEntree = detectPointEntree(monGraphe);
+    File *copieData = initialisationFile();
+
+    copieData = copieFile(data);
+    copieMonGraphe = copieGraphe(monGraphe);
+    pointsEntree = detectPointEntree(copieMonGraphe);
+    
     if (compt == 1)
     {
         afficherFile(pointsEntree);
@@ -205,21 +211,21 @@ void rangSommets(Graphe *monGraphe, File *data)
     /* Retrouver les indices et mettre les lignes à 0 */
     while (pointsEntree->firstElement != NULL)
     {
-        for (int i = 0; i < nbrSommets(); i++)
+        for (int i = 0; i < copieMonGraphe->nbrSommets; i++)
         {
-            if (tableauDeSommets(data)[i] == pointsEntree->firstElement->nombre)
+            if (tableauDeSommets(copieData)[i] == pointsEntree->firstElement->nombre)
             {
-                for (int j = 0; j < nbrSommets(); j++)
+                for (int j = 0; j < copieMonGraphe->nbrSommets; j++)
                 {
-                    if (monGraphe->matriceAdjacence[i][j] == 1)
+                    if (copieMonGraphe->matriceAdjacence[i][j] == 1)
                     {
-                        monGraphe->matriceAdjacence[i][j] = 0;
+                        copieMonGraphe->matriceAdjacence[i][j] = 0;
                        /*  printf(" indice %d \n", j + 1);   */ 
                     }
                     if (i == j)
                     {
                         /* Astuce de kessel ... :) */
-                        monGraphe->matriceAdjacence[i][j] = 1;
+                        copieMonGraphe->matriceAdjacence[i][j] = 1;
                     }
                     
                 }
@@ -228,8 +234,8 @@ void rangSommets(Graphe *monGraphe, File *data)
         pointsEntree->firstElement = pointsEntree->firstElement->suivant;
     }
     compt++;
-    /* afficherMatriceBooleenne(monGraphe->matriceAdjacence, nbrSommets(), tableauDeSommets(data)); */
-    pointsEntree = detectPointEntree(monGraphe);
+    /* afficherMatriceBooleenne(copieMonGraphe->matriceAdjacence, copieMonGraphe->nbrSommets, tableauDeSommets(copieData)); */
+    pointsEntree = detectPointEntree(copieMonGraphe);
     if (pointsEntree->firstElement == NULL)
     {
         goto escapeLoop;
@@ -238,7 +244,7 @@ void rangSommets(Graphe *monGraphe, File *data)
     {
         afficherFile(pointsEntree);
     }
-    rangSommets(monGraphe, data);
+    rangSommets(copieMonGraphe, copieData);
     escapeLoop:;
 }
 

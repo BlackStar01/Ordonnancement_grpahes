@@ -17,7 +17,7 @@ bool **creationMatriceAdjacence(int nbrSommets, File *predecesseurs)
         }
     }
     
-    TabPredecesseurs = ConvertEnTabDeFile(predecesseurs);
+    TabPredecesseurs = ConvertFileEnTabDeFile(predecesseurs);
     
     printf("Remplissage de la matrice d'adjacence ... \n");
     int p =0;

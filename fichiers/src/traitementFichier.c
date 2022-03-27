@@ -93,6 +93,50 @@ int *tableauDurees(File *uneFile)
     return tab;
 }
 
+File **TabDeSuccesseurs(File *uneFile)
+{
+    File *f1 = initialisationFile();
+    File **TabDeSuccesseurs = malloc(nbrSommets() * sizeof(File *));
+    
+    
+    f1 = copieFile(uneFile);
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        TabDeSuccesseurs[i] = initialisationFile();
+    }
+    int compt = 0, index = 0;
+    while (f1->firstElement != NULL)
+    {
+        if (compt == 0)
+        {
+            /*
+                On défile deux fois pour enlever le premier element de la file (sommet)
+                Et le deuxieme element ... qui est la durée
+            */
+            defiler(f1);
+            defiler(f1);
+            compt++;
+        }
+        
+        /*
+            -1 représente le séparateur de notre file
+        */
+        
+        int alpha = defiler(f1);
+        
+        if (alpha == -1)
+        {
+            index++;
+            defiler(f1);
+            defiler(f1);
+        }else{
+            enfiler(TabDeSuccesseurs[alpha - 1], index + 1);
+        }
+    }
+    
+    return TabDeSuccesseurs;
+}
+
 File *fileDePredecesseurs(File *uneFile)
 {
     File *f1 = initialisationFile();
@@ -133,7 +177,7 @@ File *fileDePredecesseurs(File *uneFile)
 
 /*-------------------- Conversion file en tableau de File -------------------*/
 
-File **ConvertEnTabDeFile(File *uneFile)
+File **ConvertFileEnTabDeFile(File *uneFile)
 {
     File *f1 = initialisationFile();
     /* On fait une copie pour éviter de perdre des données ... On travaillera avec la copie du coup */
@@ -152,6 +196,23 @@ File **ConvertEnTabDeFile(File *uneFile)
     }
     
     return TabDeFiles;
+}
+
+File *convertTabDeFileEnFile(File **TabDeFile, int nbrSommets){
+    File *file = initialisationFile();
+    File **copieTableau = initialisationTabDeFile(nbrSommets);
+   
+    copieTableau = copieTabDeFile(TabDeFile , nbrSommets);
+    
+    for (int i = 0; i < nbrSommets; i++)
+    {
+        while (copieTableau[i]->firstElement != NULL)
+        {
+            enfiler(file , defiler(copieTableau[i]));
+        }
+        enfiler(file , -1);
+    }
+    return file;
 }
 
 /* -------------------Recuperer les données du fichier-----------------------------*/

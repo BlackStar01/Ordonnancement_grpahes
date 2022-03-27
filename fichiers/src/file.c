@@ -26,6 +26,15 @@ File *initialisationFile()
     return file;
 }
 
+File **initialisationTabDeFile(int nbrSommets){
+    File **TabDeFile = malloc(nbrSommets * sizeof(File *));
+    for (int i = 0; i < nbrSommets; i++)
+    {
+        TabDeFile[i] = initialisationFile();
+    }
+    return TabDeFile;
+}
+
 void enfiler(File *file, int numberToAdd)
 {
     Element *newElement = malloc(sizeof(*newElement));
@@ -113,8 +122,19 @@ File *copieFile(File *fileOriginale)
         int elementDefile = defiler(fileTemporaire);
         enfiler(fileOriginale, elementDefile);
     }
-
+    
     return copieFile;
+}
+
+File **copieTabDeFile(File **TabOriginal, int nbrSommets){
+    File **copie = malloc(nbrSommets * sizeof(File *));
+    
+    for (int i = 0; i < nbrSommets; i++)
+    {
+        copie[i] = initialisationFile();
+        copie[i] = copieFile(TabOriginal[i]);
+    }
+    return copie;
 }
 
 int nbrElementsFile(File *file){
