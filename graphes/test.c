@@ -61,7 +61,7 @@ int main(int argc, char const *argv[])
         printf("\nmargeTotale de %d => %d\n",i+1,margeTotale(i+1,TabFileP,TabFileS,tabDurees));
     }
     
-
+    
     free(g);
     free(fileP);
     afficherFile(detectPointSortie(g));
