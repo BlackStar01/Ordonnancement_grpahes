@@ -63,6 +63,7 @@ int main(int argc, char const *argv[])
     
     
     free(g);
+    data = initialisationFile();
     free(fileP);
     afficherFile(detectPointSortie(g));
     

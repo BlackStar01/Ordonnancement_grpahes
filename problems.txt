@@ -1,0 +1,1 @@
+ - Quand on change un sommet du fichier, ça passe en boucle infini au niveau du calcul des rangs

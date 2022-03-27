@@ -246,5 +246,6 @@ void rangSommets(Graphe *monGraphe, File *data)
     }
     rangSommets(copieMonGraphe, copieData);
     escapeLoop:;
+    pointsEntree = initialisationFile();
 }
 

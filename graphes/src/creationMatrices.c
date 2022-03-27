@@ -54,7 +54,6 @@ int **creationMatriceValeurs(int nbrSommets, int *tableauDurees, bool **matriceA
             matriceValeurs[i][j] = 0;
         }
     }
-    
     printf("\nRemplissage  matrice  des  valeurs ...\n");
     for (int i = 0; i < nbrSommets; i++)
     {
@@ -64,8 +63,6 @@ int **creationMatriceValeurs(int nbrSommets, int *tableauDurees, bool **matriceA
             // Un arc entre 2 sommets est symbolisé par un '1' de la matrice d'adjcence
             // On associe chaque arc (i->j) à la la valeur du sommet prédécesseur sur l'arc(qui est i)            
         }
-        
     }
-    
     return matriceValeurs;  
 }
