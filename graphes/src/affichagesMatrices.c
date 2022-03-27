@@ -74,7 +74,7 @@ void afficherMatriceNormale(int **liste, int taille, int *tableauDeSommets)
     printf("\n\n");
     for (int i = 0; i < taille; i++)
     {
-        if (tableauDeSommets[i] < 9)
+        if (tableauDeSommets[i] < 10)
         {
             printf("%d  ", tableauDeSommets[i]);
         }

@@ -14,24 +14,25 @@ int main(int argc, char const *argv[])
     File *fileP = initialisationFile();
     fileP = fileDePredecesseurs(data);
     afficherFile(fileP);
-
-    printf(" \n On va initaliser now ... \n");
     
     Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(data),fileP);
     afficherMatriceBooleenne(g->matriceAdjacence, nbrSommets(), tableauDeSommets(data));
-    afficherMatriceNormale(g->matriceValeurs, nbrSommets(),tableauDeSommets(data)); 
+    /* afficherMatriceNormale(g->matriceValeurs, nbrSommets(),tableauDeSommets(data)); 
     printf("\n%d\n", detectionPointSortieUnique(g->matriceAdjacence));
     printf("\n%d\n", detectionPointEntreeUnique(g->matriceAdjacence));
     
-    printf("\n\n");
+    printf("\n\n"); */
     
-    printf("\n%d\n", detectionArcNegatif(tableauDurees(data)));
+    /* printf("\n%d\n", detectionArcNegatif(tableauDurees(data)));
     if(detectionCircuit(g))
     {
         printf("\nIl y a un circuit \n");
     }else{
         printf("\nPas de circuit\n");
-    }
+    } */
+
+    rangSommets(g, data);
+
     free(g);
     free(fileP);
 

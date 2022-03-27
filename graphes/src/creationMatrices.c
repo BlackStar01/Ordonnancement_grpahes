@@ -67,6 +67,5 @@ int **creationMatriceValeurs(int nbrSommets, int *tableauDurees, bool **matriceA
         
     }
     
-    
     return matriceValeurs;  
 }

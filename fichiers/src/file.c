@@ -16,16 +16,14 @@ struct File
 
 File *initialisationFile()
 {
-    File *File = malloc(sizeof(*File));
-    
-    if (File == NULL)
+    File *file = malloc(sizeof(*file));
+    if (file == NULL)
     {
         perror("Erreur d'initialisationFile\n");
         exit(EXIT_FAILURE);
     }
-    
-    File->firstElement = NULL;
-    return File;
+    file->firstElement = NULL;
+    return file;
 }
 
 void enfiler(File *file, int numberToAdd)

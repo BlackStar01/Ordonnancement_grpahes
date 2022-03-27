@@ -90,7 +90,6 @@ int *tableauDurees(File *uneFile)
     }
     
     tab[i] = '\0';
-    
     return tab;
 }
 
