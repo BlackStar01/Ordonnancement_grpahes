@@ -18,12 +18,12 @@ struct Graphe
 Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecesseurs)
 {
     Graphe *monGraphe = malloc(sizeof(*monGraphe));
-
+    
     monGraphe->nbrSommets = nbrSommets;
     monGraphe->matriceAdjacence = creationMatriceAdjacence(nbrSommets, predecesseurs);
     monGraphe->matriceValeurs = creationMatriceValeurs(nbrSommets, tableauDurees, monGraphe->matriceAdjacence);
-
-    printf("Initialisation du graphe effectuée ... \n");
+    
+    printf("\n Initialisation du graphe effectuée ... \n");
     return monGraphe;
 }
 
@@ -45,13 +45,13 @@ Graphe *copieGraphe(Graphe *model)
 {
     int nbrSommets = model->nbrSommets;
     Graphe *monGraphe = (Graphe *)malloc(sizeof(Graphe));
-
+    
     monGraphe->matriceValeurs = (int **)malloc(nbrSommets * sizeof(int *));
-
+    
     monGraphe->matriceAdjacence = (bool **)malloc(nbrSommets * sizeof(int *));
-
+    
     monGraphe->nbrSommets = model->nbrSommets;
-
+    
     /* Copie de la matrice d'adjacence et la matrice de valeurs */
     for (int i = 0; i < nbrSommets; i++)
     {
@@ -63,7 +63,7 @@ Graphe *copieGraphe(Graphe *model)
             monGraphe->matriceValeurs[i][j] = model->matriceValeurs[i][j];
         }
     }
-
+    
     return monGraphe;
 }
 
@@ -120,14 +120,14 @@ bool detectionCircuit(Graphe *monGraphe)
 {
     Graphe *copie = copieGraphe(monGraphe);
     File *FileDePoint = initialisationFile();
-
+    
     for (int i = 0; i < copie->nbrSommets; i++)
     {
         FileDePoint = FileCat(FileDePoint, FileCat(detectPointEntree(copie), detectPointSortie(copie)));
-
+        
         Element *firstPoint = malloc(sizeof(Element));
         firstPoint = FileDePoint->firstElement;
-
+        
         while (firstPoint != NULL)
         {
             for (int j = 0; j < copie->nbrSommets; j++)
@@ -184,7 +184,7 @@ void rangSommets(Graphe *monGraphe, File *data)
                     }
                     if (i == j)
                     {
-                        /* Astuce de kessel ... :) */
+                        /* Astuce de Kessel ... :) */
                         copieMonGraphe->matriceAdjacence[i][j] = 1;
                     }
                     
