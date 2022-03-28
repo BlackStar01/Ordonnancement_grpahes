@@ -74,19 +74,19 @@ int main(int argc, char const *argv[])
     
     for (int i = 0; i < nbrSommets(); i++)
     {
-        printf("\n Date au plus tôt du sommet de %d => %d\n", tabSommets[i],DateAuPlusTot(i+1,TabFilePred,tabDurees));
+        printf("\n Date au plus tôt du sommet de %d => %d\n", tabSommets[i],DateAuPlusTot(i+1,TabFilePred,tabDurees, tabSommets));
     }
     
     printf("\n\n --------------------- Date au plus tard -----------------------\n\n");
     for (int i = 0; i < nbrSommets(); i++)
     {
-        printf("\n Date au plus tard du sommet %d => %d\n", tabSommets[i],DateAuPlusTard(i+1,TabFilePred,TabFileSucc,tabDurees));
+        printf("\n Date au plus tard du sommet %d => %d\n", tabSommets[i],DateAuPlusTard(i+1,TabFilePred,TabFileSucc,tabDurees, tabSommets));
     }
 
     printf("\n\n -------------------- Marge Totale -----------------------\n\n");
     for (int i = 0; i < nbrSommets(); i++)
     {
-        printf("\n Marge totale du sommet %d => %d\n", tabSommets[i],margeTotale(i+1,TabFilePred,TabFileSucc,tabDurees));
+        printf("\n Marge totale du sommet %d => %d\n", tabSommets[i],margeTotale(i+1,TabFilePred,TabFileSucc,tabDurees, tabSommets));
     }
 
     free(g);
