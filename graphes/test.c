@@ -8,26 +8,21 @@ int main(int argc, char const *argv[])
     FILE *fichier = fopen("../fichiers/test.txt", "r");
     File *data = recupererDonnees(fichier);
     
-    printf("\n Affichage de toutes les données : \n");    
-    afficherFile(data);
-    
-    printf("\n File de predecesseurs : \n");
-    File *fileP = initialisationFile();
-    File **TabFileS = initialisationTabDeFile(nbrSommets()), **TabFileP = initialisationTabDeFile(nbrSommets());
-    int *tabDurees = malloc(nbrSommets() * sizeof(int));
-    tabDurees = tableauDurees(data); 
-    fileP = fileDePredecesseurs(data);
-    TabFileS = TabDeSuccesseurs(data);
-    TabFileP = ConvertFileEnTabDeFile(fileP);
-    
     
     Graphe *g = initialisationGraphe(nbrSommets(),tableauDurees(data),fileP);
+    printf("-----------------------MATRICE D' ADJACENCE-----------------------------------\n\n");
     afficherMatriceBooleenne(g->matriceAdjacence, nbrSommets(), tableauDeSommets(data));
-    /* afficherMatriceNormale(g->matriceValeurs, nbrSommets(),tableauDeSommets(data)); 
+   
+    printf("-----------------------MATRICE DE VALEURS-----------------------------------\n\n");
+    afficherMatriceNormale(g->matriceValeurs, nbrSommets(),tableauDeSommets(data)); 
+    
+    if (detectionPointSortieUnique(g->matriceAdjacence))
+    printf("Il  y  a  une  seule source");
+    
     printf("\n%d\n", detectionPointSortieUnique(g->matriceAdjacence));
     printf("\n%d\n", detectionPointEntreeUnique(g->matriceAdjacence));
     
-    printf("\n\n"); */
+    printf("\n\n"); 
     
     /* printf("\n%d\n", detectionArcNegatif(tableauDurees(data)));
     if(detectionCircuit(g))
