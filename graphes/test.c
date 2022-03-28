@@ -5,9 +5,12 @@
 
 int main(int argc, char const *argv[])
 {
+    /* char str1[100] = "This is ", str2[] = "programiz.com";
+    printf("%s", strcat(str1, str2)); */
+
     printf("\n Nombre de sommets : %d \n\n", nbrSommets());
 
-    FILE *fichier = fopen("../fichiers/test.txt", "r");
+    FILE *fichier = fopen(PATH, "r");
     File *data = recupererDonnees(fichier);
     
     /* printf("\n Affichage de toutes les données : \n");    

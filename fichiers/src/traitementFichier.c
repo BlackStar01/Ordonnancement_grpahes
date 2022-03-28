@@ -5,16 +5,15 @@
 
 int nbrSommets()
 {
-    FILE *ourFile = fopen("../fichiers/test.txt", "r");
+    FILE *ourFile = fopen(PATH, "r");
     char character;
     int compt = 1;
     
     if (ourFile == NULL)
     {
-        perror("File does not exist!!!\n");
+        perror("File does not exist!!! ");
         return -1;
     }
-    
     while ((character = fgetc(ourFile)) != EOF)
     {
         if (character == '\n')
@@ -22,9 +21,7 @@ int nbrSommets()
             compt++;
         }
     }
-    
     fclose(ourFile);
-    
     return compt;
 }
 

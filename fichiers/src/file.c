@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define PATH "../fichiers/tableauTest/test.txt"
+
 typedef struct Element Element;
 struct Element
 {
