@@ -4,13 +4,15 @@ void yellow() {
 void red() {
   printf("\033[1;31m");
 }
+void green() {
+  printf("\033[1;32m");
+}
 void resetColor()
 {
     printf("\033[0m");
 }
 void afficherMatriceBooleenne(bool **liste, int taille, int *tableauDeSommets)
 {
-    printf("\nAffichage de la matrice d'adjacence\n\n");
     printf("      ");
     for (int j = 0; j < taille; j++)
     {
@@ -65,7 +67,6 @@ void afficherMatriceBooleenne(bool **liste, int taille, int *tableauDeSommets)
 }
 void afficherMatriceNormale(int **liste, int taille, int *tableauDeSommets)
 {
-    printf("\nAffichage de la matrice des valeurs \n\n");
     printf("     ");
     for (int j = 0; j < taille; j++)
     {
@@ -95,13 +96,13 @@ void afficherMatriceNormale(int **liste, int taille, int *tableauDeSommets)
         {
             if (liste[i][j] != 0)
             {
-                red();
+                green();
                 printf("  %d  ", liste[i][j]);
                 resetColor();
             }
             else
             {
-                yellow();
+                red();
                 printf("  %d  ", liste[i][j]);
                 resetColor();
             }
