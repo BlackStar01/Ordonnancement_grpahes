@@ -36,7 +36,6 @@ bool detectionArcNegatif(int *tab)
     {
         if (tab[i] < 0)
         {
-            printf("Arc negatif repéré ... \n");
             result = true;
             break;
         }

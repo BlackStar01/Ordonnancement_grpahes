@@ -1,5 +1,6 @@
 bool detectionPointEntreeUnique(bool **matriceAdjacence)
 {
+    printf("Points d'entrée : ");
     bool result = true;
     int nbrEntrees = 0;
     for (int i = 0; i < nbrSommets(); i++)
@@ -18,7 +19,7 @@ bool detectionPointEntreeUnique(bool **matriceAdjacence)
 
             if (compt == nbrSommets())
             {
-                printf("Entrée : %d \n", i + 1);
+                printf(" %d ,", i + 1);
                 nbrEntrees++;
             }
         }
@@ -28,7 +29,16 @@ bool detectionPointEntreeUnique(bool **matriceAdjacence)
     {
         result = false;
     }
+    if (result == false)
+    {
+        printf("\n Il y a plusieurs points d'entrée \n");
+    }
+    else
+    {
+        printf("\n Il y a un seul point d'entrée \n");
+    }
 
+    printf("\n");
     return result;
 }
 
@@ -43,6 +53,7 @@ bool detectionPointSortieUnique(bool **matriceAdjacence)
 
         La fonction retourne 1 = true lorsque la sortie est unique et 0 = false dans le cas contraire
     */
+    printf("Points de sorties : ");
     bool result = true;
     int nbrSorties = 0;
     for (int i = 0; i < nbrSommets(); i++)
@@ -60,7 +71,7 @@ bool detectionPointSortieUnique(bool **matriceAdjacence)
             }
             if (compt == nbrSommets())
             {
-                printf("Sortie : %d \n", i + 1);
+                printf(" %d ,", i + 1);
                 nbrSorties++;
             }
         }
@@ -70,6 +81,15 @@ bool detectionPointSortieUnique(bool **matriceAdjacence)
     {
         result = false;
     }
+    if (result == false)
+    {
+        printf("\n Il y a plusieurs points de sortie \n");
+    }
+    else
+    {
+        printf("\n Il y a un seul point de sortie \n");
+    }
+    printf("\n");
 
     return result;
 }

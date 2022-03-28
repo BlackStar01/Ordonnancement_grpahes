@@ -54,7 +54,7 @@ int **creationMatriceValeurs(int nbrSommets, int *tableauDurees, bool **matriceA
             matriceValeurs[i][j] = 0;
         }
     }
-    printf("\nRemplissage  matrice  des  valeurs ...\n");
+    printf("Remplissage  matrice  des  valeurs ...\n");
     for (int i = 0; i < nbrSommets; i++)
     {
         for (int j = 0; j < nbrSommets; j++)

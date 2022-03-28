@@ -23,7 +23,7 @@ Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecess
     monGraphe->matriceAdjacence = creationMatriceAdjacence(nbrSommets, predecesseurs);
     monGraphe->matriceValeurs = creationMatriceValeurs(nbrSommets, tableauDurees, monGraphe->matriceAdjacence);
 
-    printf("\n Initialisation du graphe effectuée ... \n");
+    printf("Initialisation du graphe effectuée ... \n");
     return monGraphe;
 }
 
@@ -169,24 +169,6 @@ bool detectionCircuit(Graphe *monGraphe)
         }
     }
     return (nbrElementsFile(FileDePoint) < copie->nbrSommets);
-}
-
-bool verifierFileUniforme(File *maFile)
-{
-    bool result = true;
-    File *f = initialisationFile();
-    f = copieFile(maFile);
-    int premierElement = f->firstElement->nombre;
-
-    while (f->firstElement != NULL)
-    {
-        if (f->firstElement->nombre != premierElement)
-        {
-            result = false;
-        }
-        f->firstElement = f->firstElement->suivant;
-    }
-    return result;
 }
 
 /* Important de le mettre hors de la fonction, sinon il reste toujours à 1 */
