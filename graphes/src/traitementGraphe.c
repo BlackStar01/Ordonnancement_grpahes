@@ -92,28 +92,6 @@ File *detectPointEntree(Graphe *monGraphe)
     return result;
 }
 
-int nbrPointEntrees(Graphe *monGraphe, int debut)
-{
-    int res = 0;
-    bool estUnPointDentree = true;
-    for (int i = debut; i < monGraphe->nbrSommets; i++)
-    {
-        estUnPointDentree = true;
-        for (int j = 0; j < monGraphe->nbrSommets; j++)
-        {
-            if (monGraphe->matriceAdjacence[j][i] == 1)
-            {
-                estUnPointDentree = false;
-                break;
-            }
-        }
-        if (estUnPointDentree)
-        {
-            res++;
-        }
-    }
-    return res;
-}
 File *detectPointSortie(Graphe *monGraphe)
 {
     File *result = initialisationFile();
