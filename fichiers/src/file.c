@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define PATH "../fichiers/tableauTest/test.txt"
+#define PATH "../fichiers/tableauTest/table 8.txt"
 
 typedef struct Element Element;
 struct Element
@@ -29,7 +29,7 @@ File *initialisationFile()
 }
 
 File **initialisationTabDeFile(int nbrSommets){
-    File **TabDeFile = malloc(nbrSommets * sizeof(File *));
+    File **TabDeFile = malloc(nbrSommets * sizeof(File));
     for (int i = 0; i < nbrSommets; i++)
     {
         TabDeFile[i] = initialisationFile();

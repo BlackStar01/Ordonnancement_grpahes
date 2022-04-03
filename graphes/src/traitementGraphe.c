@@ -16,8 +16,8 @@ struct Graphe
 /* ----------- Création de la matrice d'ajacence ------------  */
 
 Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecesseurs)
-{
-    Graphe *monGraphe = malloc(sizeof(*monGraphe));
+{   
+    Graphe *monGraphe = (Graphe *)malloc(sizeof(Graphe));
     
     monGraphe->nbrSommets = nbrSommets;
     monGraphe->matriceAdjacence = creationMatriceAdjacence(nbrSommets, predecesseurs);

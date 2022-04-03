@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "file.c"
 
 int nbrSommets()
@@ -9,7 +10,7 @@ int nbrSommets()
     char character;
     int compt = 1;
     
-    if (ourFile == NULL)
+    if (ourFile == NULL)    
     {
         perror("File does not exist!!! ");
         return -1;
@@ -52,7 +53,9 @@ int *tableauDeSommets(File *uneFile)
     
     while (f1->firstElement->suivant != NULL)
     {
-        if (defiler(f1) == -1)
+        Element *el_suivant = malloc(sizeof(*el_suivant));
+        el_suivant = f1->firstElement->suivant;
+        if ((defiler(f1) == -1) && (el_suivant != NULL))
         {
             int temp = defiler(f1);
             if (temp != -1)
@@ -62,20 +65,19 @@ int *tableauDeSommets(File *uneFile)
             }
         }
     }
-    tab[i] = '\0';
     return tab;
 }
 
-int *tableauDurees(File *uneFile)
+/* int *tableauDurees(File *uneFile)
 {
     File *f1 = initialisationFile();
     f1 = copieFile(uneFile);
-    int i = 1, *tab = malloc(nbrSommets() * sizeof(int));
+    int i = 1, *tab = malloc(nbrSommets()*sizeof(int));
     
     defiler(f1);
     tab[0] = defiler(f1);
     
-    while (f1->firstElement->suivant != NULL)
+    while (f1->firstElement->suivant->suivant != NULL)
     {
         if (defiler(f1) == -1)
         {
@@ -88,11 +90,33 @@ int *tableauDurees(File *uneFile)
     tab[i] = '\0';
     return tab;
 }
+ */
+int *tableauDurees(File *uneFile)
+{
+    File *f1 = initialisationFile();
+    f1 = copieFile(uneFile);
+    int i = 1, *tab = malloc(nbrSommets()*sizeof(int));
+
+    defiler(f1);
+    tab[0] = defiler(f1);
+    while (f1->firstElement->suivant != NULL)
+    {
+        Element *el_suivant = malloc(sizeof(*el_suivant));
+        el_suivant = f1->firstElement->suivant;
+        if ((defiler(f1) == -1) && el_suivant != NULL)
+        {
+            defiler(f1);
+            tab[i] = defiler(f1);
+            i++;
+        }
+    }
+    return tab;
+}
 
 File **TabDeSuccesseurs(File *uneFile)
 {
     File *f1 = initialisationFile();
-    File **TabDeSuccesseurs = malloc(nbrSommets() * sizeof(File *));
+    File **TabDeSuccesseurs = malloc(nbrSommets() * sizeof(File));
     
     
     f1 = copieFile(uneFile);
