@@ -3,8 +3,7 @@
 bool **creationMatriceAdjacence(int nbrSommets, File *predecesseurs)
 {
     bool **matriceAdjacence = (bool **)malloc(nbrSommets * sizeof(bool*));
-    
-    File **TabPredecesseurs = malloc(11 * sizeof(File));
+    File **TabPredecesseurs = malloc(nbrSommets * sizeof(File));
     /* Conversion de la file en tableau de files (car sera plus facile à manipuler pour la matrice) /
         On met déjà tous les elements à 0*/
     for(int i = 0; i < nbrSommets; i++) 
@@ -19,7 +18,6 @@ bool **creationMatriceAdjacence(int nbrSommets, File *predecesseurs)
     printf("Remplissage  matrice  d'adjacence ...\n");
     TabPredecesseurs = ConvertFileEnTabDeFile(predecesseurs);
     
-    printf("Remplissage de la matrice d'adjacence ... \n");
     int p =0;
     for (int i = 0; i < nbrSommets; i++)
     {       

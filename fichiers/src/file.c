@@ -1,7 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <dirent.h>
+DIR *db;
+struct dirent *dirp;
 
 #define PATH "../fichiers/tableauTest/table 8.txt"
+
+/* char **findFiles()
+{
+    char **tableauDeFichiers = malloc(12*sizeof(char*)); 
+    char directory[30];
+    int i = 0;
+    printf("Entrer le nom du dossier contenant les fichiers : ");
+    scanf("%s", directory);
+    if ((db = opendir(directory)) != NULL)
+    {
+        while ((dirp = readdir(db)) != NULL)
+        {
+            tableauDeFichiers[i] = dirp->d_name;
+            /* printf("Fichier : %s/%s \n", directory, dirp->d_name); */
+            i++;
+        }
+    }
+    else
+    {
+        printf(" Impossible d'ouvrir ce dossier \n");
+    }
+
+    return tableauDeFichiers;
+} */
 
 typedef struct Element Element;
 struct Element
@@ -28,7 +56,8 @@ File *initialisationFile()
     return file;
 }
 
-File **initialisationTabDeFile(int nbrSommets){
+File **initialisationTabDeFile(int nbrSommets)
+{
     File **TabDeFile = malloc(nbrSommets * sizeof(File));
     for (int i = 0; i < nbrSommets; i++)
     {
@@ -45,10 +74,10 @@ void enfiler(File *file, int numberToAdd)
         perror("Erreur lors de l'ajout de l'element\n");
         exit(EXIT_FAILURE);
     }
-    
+
     newElement->nombre = numberToAdd;
     newElement->suivant = NULL;
-    
+
     if (file->firstElement != NULL) /* La file n'est pas vide */
     {
         /* On se positionne à la fin de la file */
@@ -71,18 +100,18 @@ int defiler(File *file)
     {
         exit(EXIT_FAILURE);
     }
-    
+
     int nombreDefile = 0;
-    
+
     if (file->firstElement != NULL)
     {
         Element *elementDefile = file->firstElement;
-        
+
         nombreDefile = elementDefile->nombre;
         file->firstElement = elementDefile->suivant;
         free(elementDefile);
     }
-    
+
     return nombreDefile;
 }
 
@@ -93,9 +122,9 @@ void afficherFile(File *File)
         perror("Rien à efficher\n");
         exit(EXIT_FAILURE);
     }
-    
+
     Element *actuel = File->firstElement;
-    
+
     while (actuel != NULL)
     {
         printf("%d -> ", actuel->nombre);
@@ -114,9 +143,9 @@ File *copieFile(File *fileOriginale)
         enfiler(fileTemporaire, elementDefile);
         enfiler(copieFile, elementDefile);
     }
-    /*  
-        Pour ramener tous les elements dans la file originale.... 
-        vu qu'ils seront supprimés après la première boucle 
+    /*
+        Pour ramener tous les elements dans la file originale....
+        vu qu'ils seront supprimés après la première boucle
         Ca va egalement supprimer les elements de la file temporaire vu qu'on défile
     */
     while (fileTemporaire->firstElement != NULL)
@@ -124,13 +153,14 @@ File *copieFile(File *fileOriginale)
         int elementDefile = defiler(fileTemporaire);
         enfiler(fileOriginale, elementDefile);
     }
-    
+
     return copieFile;
 }
 
-File **copieTabDeFile(File **TabOriginal, int nbrSommets){
+File **copieTabDeFile(File **TabOriginal, int nbrSommets)
+{
     File **copie = malloc(nbrSommets * sizeof(File *));
-    
+
     for (int i = 0; i < nbrSommets; i++)
     {
         copie[i] = initialisationFile();
@@ -139,18 +169,19 @@ File **copieTabDeFile(File **TabOriginal, int nbrSommets){
     return copie;
 }
 
-int nbrElementsFile(File *file){
+int nbrElementsFile(File *file)
+{
     int compt = 0;
     if (file == NULL)
     {
         perror("Erreur lors de l'operation\n");
         exit(EXIT_FAILURE);
     }
-    if (file ->firstElement == NULL)
+    if (file->firstElement == NULL)
     {
         return 0;
     }
-    
+
     Element *currentElement = malloc(sizeof(Element));
     currentElement = file->firstElement;
     /*  On compte le nombre d'elements*/
@@ -159,11 +190,12 @@ int nbrElementsFile(File *file){
         currentElement = currentElement->suivant;
         compt++;
     }
-    
+
     return compt;
 }
 
-File *FileCat(File *file1,File *file2){
+File *FileCat(File *file1, File *file2)
+{
     if (file1 == NULL || file2 == NULL)
     {
         perror("Erreur lors de la concatenation\n");
