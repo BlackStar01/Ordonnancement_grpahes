@@ -5,7 +5,7 @@
 DIR *db;
 struct dirent *dirp;
 
-#define PATH "../fichiers/tableauTest/table 8.txt"
+#define PATH "../fichiers/tableauTest/table 11.txt"
 
 /* char **findFiles()
 {
@@ -19,7 +19,7 @@ struct dirent *dirp;
         while ((dirp = readdir(db)) != NULL)
         {
             tableauDeFichiers[i] = dirp->d_name;
-            /* printf("Fichier : %s/%s \n", directory, dirp->d_name); */
+            /* printf("Fichier : %s/%s \n", directory, dirp->d_name); *
             i++;
         }
     }
@@ -46,7 +46,7 @@ struct File
 
 File *initialisationFile()
 {
-    File *file = malloc(sizeof(*file));
+    File *file = malloc(sizeof(File *));
     if (file == NULL)
     {
         perror("Erreur d'initialisationFile\n");

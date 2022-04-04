@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./src/traitementGraphe.c"
-/*#include "./src/calendrier.c" */
+#include "./src/calendrier.c"
 
 int main(int argc, char const *argv[])
 {
@@ -105,18 +105,18 @@ int main(int argc, char const *argv[])
 
         printf("\n\n --------------------------  Calendrier  ---------------------------\n\n");
 
-        /* printf("\n\n ------------------------- Dates au plus tot --------------------------\n\n");
+        printf("\n\n ------------------------- Dates au plus tot --------------------------\n\n");
 
         for (int i = 0; i < nbrSommets(); i++)
         {
-            printf("\n Date au plus tôt du sommet de %d => %d\n", tabSommets[i], DateAuPlusTot(i + 1, TabFilePred, tabDurees, tabSommets));
+            printf("\n Date au plus tôt du sommet de %d => %d\n", tabSommets[i], DateAuPlusTot(tabSommets[i], TabFilePred, tabDurees, tabSommets));
         }
 
         printf("\n\n --------------------- Date au plus tard -----------------------\n\n");
         for (int i = 0; i < nbrSommets(); i++)
         {
-            printf("\n Date au plus tard du sommet %d => %d\n", tabSommets[i], DateAuPlusTard(i + 1, TabFilePred, TabFileSucc, tabDurees, tabSommets));
-        } */
+            printf("\n Date au plus tard du sommet %d => %d\n", tabSommets[i], DateAuPlusTard(tabSommets[i], TabFilePred, TabFileSucc, tabDurees, tabSommets));
+        }
 
         /* printf("\n\n -------------------- Marge Totale -----------------------\n\n");
         for (int i = 0; i < nbrSommets(); i++)
