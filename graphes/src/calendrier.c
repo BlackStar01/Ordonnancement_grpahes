@@ -15,23 +15,24 @@ int DateAuPlusTot(int sommet, File **TabPredecesseur, int *TabDurees, int *tabSo
     int dateAuPlusTot = TabDurees[Sommet], max = 0,s = 0, sMax = Sommet;
     copiePredecesseur = copieFile(TabPredecesseur[Sommet]);
     
-    if(copiePredecesseur->firstElement != NULL){
+    if(copiePredecesseur->firstElement == NULL) goto EscapeLoop;
         s = defiler(copiePredecesseur);
-        max = TabDurees[trouverIndiceSommet(s,tabSommet)];
+        max = DateAuPlusTot(s, TabPredecesseur, TabDurees, tabSommet);
         sMax = s;
-    }
+    
     while (copiePredecesseur->firstElement != NULL)
     {       
         s = defiler(copiePredecesseur);
-        int nvDuree = TabDurees[trouverIndiceSommet(s,tabSommet)];
-        if(nvDuree > max)
+        int nvDate = DateAuPlusTot(s, TabPredecesseur, TabDurees, tabSommet);
+        if(nvDate > max)
         {
-            max = nvDuree;
+            max = nvDate;
             sMax = s;
         }
     }
     
-    dateAuPlusTot += max;
+    dateAuPlusTot = TabDurees[trouverIndiceSommet(sMax, tabSommet)] + max;
+    EscapeLoop:;
     return dateAuPlusTot;
 }
 
@@ -43,21 +44,21 @@ int DateAuPlusTard(int sommet, File **TabPredecesseur, File **TabSuccesseur, int
     copieSuccesseur = copieFile(TabSuccesseur[Sommet]); 
     
     if(copieSuccesseur->firstElement == NULL) goto EscapeLoop;    
-
+    
     s = defiler(copieSuccesseur);
-    min = TabDurees[trouverIndiceSommet(s,tabSommet)];
+    min = DateAuPlusTard(s, TabPredecesseur, TabPredecesseur, TabDurees, tabSommet);
     sMin = s;
-
+    
     while (copieSuccesseur->firstElement != NULL)
     {       
         s = defiler(copieSuccesseur);
-        if(TabDurees[trouverIndiceSommet(s,tabSommet)] < min) {
-            min = TabDurees[trouverIndiceSommet(s,tabSommet)];
+        int nvDate = DateAuPlusTard(sMin, TabPredecesseur, TabPredecesseur, TabDurees, tabSommet);
+        if(nvDate < min) {
+            min = nvDate;
             sMin = s;
         }
     }
-    dateAuPlusTard = DateAuPlusTard(sMin,TabPredecesseur,TabSuccesseur,TabDurees,tabSommet);
-    dateAuPlusTard -= TabDurees[sMin];
+    dateAuPlusTard = DateAuPlusTard(sMin,TabPredecesseur,TabSuccesseur,TabDurees,tabSommet) - TabDurees[trouverIndiceSommet(sMin, tabSommet)];
     
     EscapeLoop:; 
     return dateAuPlusTard;
