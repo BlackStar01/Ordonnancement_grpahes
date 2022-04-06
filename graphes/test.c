@@ -58,7 +58,7 @@ int main(int argc, char const *argv[])
     afficherMatriceNormale(g->matriceValeurs, nbrSommets(), tableauDeSommets(data));
 
     printf("\n\n ---------------------------------- III - Verification des propriétés --------------------------------------\n\n");
-
+    
     printf("\n\n --------------------- Détection de points -----------------------\n\n");
 
     /* J'ai mis les if juste pour afficher sans les valeurs booleennes */
