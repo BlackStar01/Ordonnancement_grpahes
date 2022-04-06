@@ -1,33 +1,34 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "./src/traitementGraphe.c"
-#include "./src/calendrier.c"
+#include "./src/menu.c"
 
 int main(int argc, char const *argv[])
 {
+
+    demanderFichier();  
+
     /* char **aaa = findFiles();
     for (int i = 0; i < 11; i++)
     {
         printf("%s\n", aaa[i]);
     } */
+    /* setPath("table 11.txt");
     int nbrS = nbrSommets();
     printf("\n Nombre de sommets : %d \n\n", nbrS);
 
     printf("\n\n -------------------------- I - Lecture du tableau de contraintes dans un fichier et stockage en mémoire -------------------------\n\n");
 
-    FILE *fichier = fopen(PATH, "r");
+    FILE *fichier = fopen(getPath(), "r");
     File *data = recupererDonnees(fichier);
     if (data != NULL)
     {
-        printf(" Données recupérées avec succès ...\n");
+        printf("\n Données recupérées avec succès ...\n");
     }
     printf("\n\n");
 
     /* printf("\n Affichage de toutes les données : \n");
-    afficherFile(data); */
+    afficherFile(data); *
 
     /* printf("\n File de predecesseurs : \n");
-    afficherFile(fileDePredecesseurs(data)); */
+    afficherFile(fileDePredecesseurs(data)); *
 
     printf("\n\n ------------------------ II - Affichage du graphe correspondant sous forme matricielle -----------------------\n\n");
 
@@ -35,7 +36,7 @@ int main(int argc, char const *argv[])
     fileP = fileDePredecesseurs(data);
     int *tabDurees = malloc(nbrS * sizeof(int));
     tabDurees = tableauDurees(data);
-    /* afficherFile(fileP); */
+    /* afficherFile(fileP); *
 
     File **TabFileSucc = initialisationTabDeFile(nbrSommets());
     File **TabFilePred = initialisationTabDeFile(nbrSommets());
@@ -61,7 +62,7 @@ int main(int argc, char const *argv[])
     
     printf("\n\n --------------------- Détection de points -----------------------\n\n");
 
-    /* J'ai mis les if juste pour afficher sans les valeurs booleennes */
+    /* J'ai mis les if juste pour afficher sans les valeurs booleennes *
     if (detectionPointEntreeUnique(g->matriceAdjacence))
     {
         printf(" ");
@@ -93,7 +94,7 @@ int main(int argc, char const *argv[])
         printf("\n Pas de circuit\n\n");
     }
 
-    if (!detectionArcNegatif(tableauDurees(data)) && !detectionCircuit(g) && detectionPointEntreeUnique(g->matriceAdjacence) && detectionPointSortieUnique(g->matriceAdjacence))
+    if (!detectionArcNegatif(tableauDurees(data)) && !detectionCircuit(g))
     {
         printf("\n\n ---------------------------------- IV - Calculer les rangs de tous les sommets du graphe. --------------------------------------\n\n");
 
@@ -118,11 +119,11 @@ int main(int argc, char const *argv[])
             printf("\n Date au plus tard du sommet %d => %d\n", tabSommets[i], DateAuPlusTard(tabSommets[i], TabFilePred, TabFileSucc, tabDurees, tabSommets));
         }
 
-        /* printf("\n\n -------------------- Marge Totale -----------------------\n\n");
+        printf("\n\n -------------------- Marge Totale -----------------------\n\n");
         for (int i = 0; i < nbrSommets(); i++)
         {
             printf("\n Marge totale du sommet %d => %d\n", tabSommets[i], margeTotale(i + 1, TabFilePred, TabFileSucc, tabDurees, tabSommets));
-        } */
+        }
     }
     else
     {
@@ -131,7 +132,7 @@ int main(int argc, char const *argv[])
 
     free(g);
     data = initialisationFile();
-    free(fileP);
+    free(fileP); */
 
     return 0;
 }

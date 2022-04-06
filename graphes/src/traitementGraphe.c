@@ -164,7 +164,7 @@ void rangSommets(Graphe *monGraphe, File *data)
     
     if (compt == 1)
     {
-        afficherFile(pointsEntree);
+        printf("Sommmet %d  ->  ", pointsEntree->firstElement->nombre);
     }
     
     printf(" Rang : %d \n\n", compt);
@@ -194,7 +194,6 @@ void rangSommets(Graphe *monGraphe, File *data)
         pointsEntree->firstElement = pointsEntree->firstElement->suivant;
     }
     compt++;
-    /* afficherMatriceBooleenne(copieMonGraphe->matriceAdjacence, copieMonGraphe->nbrSommets, tableauDeSommets(copieData)); */
     pointsEntree = detectPointEntree(copieMonGraphe);
     if (pointsEntree->firstElement == NULL)
     {
@@ -202,7 +201,7 @@ void rangSommets(Graphe *monGraphe, File *data)
     }
     else
     {
-        afficherFile(pointsEntree);
+        printf("Sommet %d  ->  ", pointsEntree->firstElement->nombre);
     }
     rangSommets(copieMonGraphe, copieData);
     escapeLoop:;

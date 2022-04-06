@@ -1,11 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+
+/* Pour lire dans un dossier ... pas un fichier  */
 #include <dirent.h>
 DIR *db;
 struct dirent *dirp;
 
-#define PATH "../fichiers/tableauTest/table 11.txt"
+#define PATHBASE "../fichiers/tableauTest/"
+char Path[100];
+
+void setPath(char *FileName){
+    strcpy(Path, PATHBASE);
+    strcat(Path, FileName);
+}
+
+char *getPath(){
+    return Path;
+}
 
 /* char **findFiles()
 {

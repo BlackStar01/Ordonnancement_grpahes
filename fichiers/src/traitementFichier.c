@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "file.c"
+#define PATH getPath()
 
 int nbrSommets()
 {
@@ -252,11 +252,13 @@ File *recupererDonnees(FILE *fichier)
         char *token = strtok(c, " "); /* Il fonctionne comme un split en javascript */
         while (token != NULL)
         {
+            printf("On lit %d \n", atoi(token));
             enfiler(maFile, atoi(token));
             token = strtok(NULL, " ");
             i++;
         }
         enfiler(maFile, -1);
+        printf("---------  LIGNE SUIVANTE \n");
         i++;
     }
     
