@@ -5,7 +5,7 @@
 
 int nbrSommets()
 {
-    FILE *ourFile = fopen("../fichiers/test.txt", "r");
+    FILE *ourFile = fopen("../tableauTest/test.txt", "r");
     char character;
     int compt = 1;
     
@@ -68,6 +68,36 @@ int *tableauDeSommets(File *uneFile)
     tab[i] = '\0';
     return tab;
 }
+
+int trouverIndiceSommet(int valeurSommet, int *tab)
+{
+    int indice = 0, i = 0;
+    bool estTrouve = false;
+    while (tab[i] != '\n')
+    {
+        if (valeurSommet == tab[i])
+        {
+            estTrouve = true;
+            break;
+        }
+        else 
+        {
+            estTrouve = false;
+            indice++;
+        }
+        i++;
+    }
+    if (estTrouve)
+    {
+        return indice;
+    }
+    else
+    {
+        return 555;
+    }
+    
+}
+
 
 int *tableauDurees(File *uneFile)
 {

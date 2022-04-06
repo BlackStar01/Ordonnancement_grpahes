@@ -1,36 +1,8 @@
-int trouverIndiceSommet(int valeurSommet, int *tab)
-{
-    int indice = 0, i = 0;
-    bool estTrouve = false;
-    while (tab[i] != '\n')
-    {
-        if (valeurSommet == tab[i])
-        {
-            estTrouve = true;
-            break;
-        }
-        else 
-        {
-            estTrouve = false;
-            indice++;
-        }
-        i++;
-    }
-    if (estTrouve)
-    {
-        return indice;
-    }
-    else
-    {
-        return 555;
-    }
-    
-}
 
-int DateAuPlusTot(int Sommet, File **TabPredecesseur, int *TabDurees){
+int DateAuPlusTot(int sommet, File **TabPredecesseur, int *TabDurees, int *tableauSommet){
     
     File *copiePredecesseur = initialisationFile();
-    int Sommet = trouverIndiceSommet(sommet);
+    int Sommet = trouverIndiceSommet(sommet , tableauSommet);
     int dateAuPlusTot = TabDurees[Sommet - 1], max = 0,s = 0, sMax = Sommet;
     copiePredecesseur = copieFile(TabPredecesseur[Sommet - 1]);
     
@@ -53,14 +25,14 @@ int DateAuPlusTot(int Sommet, File **TabPredecesseur, int *TabDurees){
     return dateAuPlusTot;
 }
 
-int DateAuPlusTard(int Sommet, File **TabPredecesseur, File **TabSuccesseur, int *TabDurees){
+int DateAuPlusTard(int sommet, File **TabPredecesseur, File **TabSuccesseur, int *TabDurees, int *tableauSommet){
     File *copiePredecesseur = initialisationFile(), *copieSuccesseur = initialisationFile();
-    int Sommet = trouverIndiceSommet(sommet);
-    int dateAuPlusTard = DateAuPlusTot(Sommet,TabPredecesseur,TabDurees), min = 0,s = 0,sMin = Sommet;
+    int Sommet = trouverIndiceSommet(sommet , tableauSommet);
+    int dateAuPlusTard = DateAuPlusTot(Sommet,TabPredecesseur,TabDurees,tableauSommet), min = 0,s = 0,sMin = Sommet;
     copiePredecesseur = copieFile(TabPredecesseur[Sommet - 1]);
     copieSuccesseur = copieFile(TabSuccesseur[Sommet - 1]);
     
-    if(copieSuccesseur->== NULL){
+    if(copieSuccesseur->firstElement== NULL){
         goto EscapeLoop;    
     }else{    
         s = defiler(copieSuccesseur);
@@ -75,14 +47,14 @@ int DateAuPlusTard(int Sommet, File **TabPredecesseur, File **TabSuccesseur, int
             sMin = s;
         }
     }
-    dateAuPlusTard = DateAuPlusTard(sMin,TabPredecesseur,TabSuccesseur,TabDurees);
+    dateAuPlusTard = DateAuPlusTard(sMin,TabPredecesseur,TabSuccesseur,TabDurees,tableauSommet);
     dateAuPlusTard -= TabDurees[sMin - 1];
     
     EscapeLoop:;   
     return dateAuPlusTard;
 }
 
-int margeTotale(int sommet, File **TabPredecesseur, File **TabSuccesseur, int *TabDurees){
-    int Sommet = trouverIndiceSommet(sommet);
-    return DateAuPlusTard(Sommet,TabPredecesseur,TabSuccesseur,TabDurees) - DateAuPlusTot(Sommet,TabPredecesseur, TabDurees);
+int margeTotale(int sommet, File **TabPredecesseur, File **TabSuccesseur, int *TabDurees, int *tableauSommet){
+    int Sommet = trouverIndiceSommet(sommet , tableauSommet);
+    return DateAuPlusTard(Sommet,TabPredecesseur,TabSuccesseur,TabDurees,tableauSommet) - DateAuPlusTot(Sommet,TabPredecesseur, TabDurees,tableauSommet);
 }

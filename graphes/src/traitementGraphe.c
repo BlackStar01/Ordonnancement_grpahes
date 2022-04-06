@@ -157,7 +157,7 @@ void rangSommets(Graphe *monGraphe, File *data)
     Graphe *copieMonGraphe = malloc(sizeof(Graphe));
     File *pointsEntree = initialisationFile();
     File *copieData = initialisationFile();
-
+    
     copieData = copieFile(data);
     copieMonGraphe = copieGraphe(monGraphe);
     pointsEntree = detectPointEntree(copieMonGraphe);
