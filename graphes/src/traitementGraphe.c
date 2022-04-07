@@ -16,14 +16,13 @@ struct Graphe
 /* ----------- Création de la matrice d'ajacence ------------  */
 
 Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecesseurs)
-{
-    Graphe *monGraphe = malloc(sizeof(*monGraphe));
+{   
+    Graphe *monGraphe = (Graphe *)malloc(sizeof(Graphe));
     
     monGraphe->nbrSommets = nbrSommets;
     monGraphe->matriceAdjacence = creationMatriceAdjacence(nbrSommets, predecesseurs);
     monGraphe->matriceValeurs = creationMatriceValeurs(nbrSommets, tableauDurees, monGraphe->matriceAdjacence);
     
-    printf("\n Initialisation du graphe effectuée ... \n");
     return monGraphe;
 }
 
@@ -147,6 +146,7 @@ bool detectionCircuit(Graphe *monGraphe)
         }
     }
     return (nbrElementsFile(FileDePoint) < copie->nbrSommets);
+    // Retourne TRUE s'il y a un circuit et FALSE sinon
 }
 
 /* Important de le mettre hors de la fonction, sinon il reste toujours à 1 */
@@ -164,7 +164,7 @@ void rangSommets(Graphe *monGraphe, File *data)
     
     if (compt == 1)
     {
-        afficherFile(pointsEntree);
+        printf("Sommmet %d  ->  ", pointsEntree->firstElement->nombre);
     }
     
     printf(" Rang : %d \n\n", compt);
@@ -194,7 +194,6 @@ void rangSommets(Graphe *monGraphe, File *data)
         pointsEntree->firstElement = pointsEntree->firstElement->suivant;
     }
     compt++;
-    /* afficherMatriceBooleenne(copieMonGraphe->matriceAdjacence, copieMonGraphe->nbrSommets, tableauDeSommets(copieData)); */
     pointsEntree = detectPointEntree(copieMonGraphe);
     if (pointsEntree->firstElement == NULL)
     {
@@ -202,7 +201,7 @@ void rangSommets(Graphe *monGraphe, File *data)
     }
     else
     {
-        afficherFile(pointsEntree);
+        printf("Sommet %d  ->  ", pointsEntree->firstElement->nombre);
     }
     rangSommets(copieMonGraphe, copieData);
     escapeLoop:;

@@ -3,7 +3,7 @@
 
 int main(int argc, char const *argv[])
 {
-    FILE *fichier1 = fopen("./test.txt", "r");
+    FILE *fichier1 = fopen("./tableauTest/test.txt", "r");
     
     File *data = recupererDonnees(fichier1);
     File *data_temporaire = copieFile(data);

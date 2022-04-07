@@ -93,29 +93,3 @@ bool detectionPointSortieUnique(bool **matriceAdjacence)
 
     return result;
 }
-
-bool verifierLigneZero(bool **matriceAdjacence, int i, int j)
-{
-    bool result = false;
-    const int temp = 0;
-    int compt = 0;
-    do
-    {
-        if (matriceAdjacence[i][j] = temp)
-        {
-            compt++;
-        }
-        j++;
-    } while (matriceAdjacence[i][j] != '\0');
-
-    if (compt == nbrSommets())
-    {
-        result = true;
-    }
-    else
-    {
-        result = false;
-    }
-
-    return false;
-}

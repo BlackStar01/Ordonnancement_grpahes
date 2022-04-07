@@ -1,60 +1,70 @@
+// int trouverIndiceSommet(int valeurSommet, int *tab)
+// {
+//     int indice = -1;
+//     for (int i = 0; i < nbrSommets(); i++)
+//     {
+//         if (valeurSommet == tab[i]) indice = i;
+//     }
+    
+//     return indice;
+// }
 
-int DateAuPlusTot(int sommet, File **TabPredecesseur, int *TabDurees, int *tableauSommet){
-    
+int DateAuPlusTot(int sommet, File **TabPredecesseur, int *TabDurees, int *tabSommet){
+    int Sommet = trouverIndiceSommet(sommet, tabSommet);
     File *copiePredecesseur = initialisationFile();
-    int Sommet = trouverIndiceSommet(sommet , tableauSommet);
-    int dateAuPlusTot = TabDurees[Sommet - 1], max = 0,s = 0, sMax = Sommet;
-    copiePredecesseur = copieFile(TabPredecesseur[Sommet - 1]);
+    int dateAuPlusTot = TabDurees[Sommet], max = 0,s = 0, sMax = Sommet;
+    copiePredecesseur = copieFile(TabPredecesseur[Sommet]);
     
-        if(copiePredecesseur->firstElement != NULL){
-            s = defiler(copiePredecesseur);
-            max = TabDurees[s - 1];
+    if(copiePredecesseur->firstElement == NULL) goto EscapeLoop;
+        s = defiler(copiePredecesseur);
+        max = DateAuPlusTot(s, TabPredecesseur, TabDurees, tabSommet);
+        sMax = s;
+    
+    while (copiePredecesseur->firstElement != NULL)
+    {       
+        s = defiler(copiePredecesseur);
+        int nvDate = DateAuPlusTot(s, TabPredecesseur, TabDurees, tabSommet);
+        if(nvDate > max)
+        {
+            max = nvDate;
             sMax = s;
         }
-        while (copiePredecesseur->firstElement != NULL)
-        {       
-            s = defiler(copiePredecesseur);
-            if(TabDurees[s - 1] > max)
-            {
-                max = TabDurees[s - 1];
-                sMax = s;
-            }
-        }
+    }
     
-    dateAuPlusTot += max;
+    dateAuPlusTot = TabDurees[trouverIndiceSommet(sMax, tabSommet)] + max;
+    EscapeLoop:;
     return dateAuPlusTot;
 }
 
-int DateAuPlusTard(int sommet, File **TabPredecesseur, File **TabSuccesseur, int *TabDurees, int *tableauSommet){
+int DateAuPlusTard(int sommet, File **TabPredecesseur, File **TabSuccesseur, int *TabDurees, int *tabSommet){
+    int Sommet = trouverIndiceSommet(sommet, tabSommet);
     File *copiePredecesseur = initialisationFile(), *copieSuccesseur = initialisationFile();
-    int Sommet = trouverIndiceSommet(sommet , tableauSommet);
-    int dateAuPlusTard = DateAuPlusTot(Sommet,TabPredecesseur,TabDurees,tableauSommet), min = 0,s = 0,sMin = Sommet;
-    copiePredecesseur = copieFile(TabPredecesseur[Sommet - 1]);
-    copieSuccesseur = copieFile(TabSuccesseur[Sommet - 1]);
+    int dateAuPlusTard = DateAuPlusTot(sommet,TabPredecesseur,TabDurees,tabSommet), min = 0,s = 0,sMin = Sommet; 
+    copiePredecesseur = copieFile(TabPredecesseur[Sommet]);
+    copieSuccesseur = copieFile(TabSuccesseur[Sommet]); 
     
-    if(copieSuccesseur->firstElement== NULL){
-        goto EscapeLoop;    
-    }else{    
-        s = defiler(copieSuccesseur);
-        min = TabDurees[s - 1];
-        sMin = s;
-    }
+    if(copieSuccesseur->firstElement == NULL) goto EscapeLoop;    
+    
+    s = defiler(copieSuccesseur);
+    min = DateAuPlusTard(s, TabPredecesseur, TabPredecesseur, TabDurees, tabSommet);
+    sMin = s;
+    
     while (copieSuccesseur->firstElement != NULL)
     {       
         s = defiler(copieSuccesseur);
-        if(TabDurees[s - 1] < min) {
-            min = TabDurees[s - 1];
+        int nvDate = DateAuPlusTard(sMin, TabPredecesseur, TabPredecesseur, TabDurees, tabSommet);
+        if(nvDate < min) {
+            min = nvDate;
             sMin = s;
         }
     }
-    dateAuPlusTard = DateAuPlusTard(sMin,TabPredecesseur,TabSuccesseur,TabDurees,tableauSommet);
-    dateAuPlusTard -= TabDurees[sMin - 1];
+    dateAuPlusTard = DateAuPlusTard(sMin,TabPredecesseur,TabSuccesseur,TabDurees,tabSommet) - TabDurees[trouverIndiceSommet(sMin, tabSommet)];
     
-    EscapeLoop:;   
+    EscapeLoop:; 
     return dateAuPlusTard;
 }
 
-int margeTotale(int sommet, File **TabPredecesseur, File **TabSuccesseur, int *TabDurees, int *tableauSommet){
-    int Sommet = trouverIndiceSommet(sommet , tableauSommet);
-    return DateAuPlusTard(Sommet,TabPredecesseur,TabSuccesseur,TabDurees,tableauSommet) - DateAuPlusTot(Sommet,TabPredecesseur, TabDurees,tableauSommet);
+int margeTotale(int sommet, File **TabPredecesseur, File **TabSuccesseur, int *TabDurees, int *tabSommet){
+    int Sommet = trouverIndiceSommet(sommet, tabSommet);
+    return DateAuPlusTard(sommet,TabPredecesseur,TabSuccesseur,TabDurees,tabSommet) - DateAuPlusTot(sommet,TabPredecesseur, TabDurees,tabSommet);
 }
