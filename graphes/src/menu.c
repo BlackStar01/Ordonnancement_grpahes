@@ -42,7 +42,7 @@ void constructionDuGraphe(){
     tabDurees = tableauDurees(ourData);
     
     ourGraph = (Graphe *)malloc(sizeof(Graphe));
-    ourGraph = initialisationGraphe(nbrSommets(), tabDurees, fileP);
+    ourGraph = initialisationGraphe(nbrSommets(), tabDurees, fileP, tableauDeSommets(ourData));
     sleep(2);
     printf("\n Graphe  créé avec succès... \n");
 }
@@ -52,17 +52,17 @@ void AlgoDetectCircuit(){
 }
 
 void AlgoDetectArcNegatif(){
-    printf("%s",(!detectionArcNegatif(ourGraph))?"\n Le graphe ne possède pas d'arc négatif !\n":"\n Le graphe contient un arc négatif !\n");
+    printf("%s",(!detectionArcNegatif(tableauDurees(ourData)))?"\n Le graphe ne possède pas d'arc négatif !\n":"\n Le graphe contient un arc négatif !\n");
 }
 
-void AlgoPointSortieUnique(){
-    printf("%s",(!detectionPointSortieUnique(ourGraph))?"\n Le graphe a  plusieurs points  d' entrée  qui  sont : ":"\n Le graphe a  un  point  d' entrée unique  qui est :");
-    afficherFile(detectPointSortie(ourGraph));
+void AlgoPointEntreeUnique(){
+    printf("%s",(!detectionPointEntreeUnique(ourGraph->matriceAdjacence))?"\n Le graphe a  plusieurs points  d' entrée  qui  sont : ":"\n Le graphe a  un  point  d' entrée unique  qui est :");
+    afficherFile(detectPointEntree(ourGraph));
     printf("\n");    
 }
 
 void AlgoPointSortieUnique(){
-    printf("%s",(!detectionPointSortieUnique(ourGraph))?"\n Le graphe a  plusieurs points  de sortie  qui  sont : ":"\n Le graphe a  un  point  de sortie unique  qui est :");
+    printf("%s",(!detectionPointSortieUnique(ourGraph->matriceAdjacence))?"\n Le graphe a  plusieurs points  de sortie  qui  sont : ":"\n Le graphe a  un  point  de sortie unique  qui est :");
     afficherFile(detectPointSortie(ourGraph));
     printf("\n");    
 }
@@ -82,10 +82,118 @@ void AfficherRangs(){
 }
 
 void AfficherCalendrier(){
- while ()
- {
-     /* code */
- }
- 
+    char buff[100];
     
+    for (int i = 0; i < 23; i++) printf("-");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        for (int j = 0; j < 10; j++) printf("-");
+    }
+    
+    printf("\n");
+    
+    strcpy(buff,"| Sommets");
+    printf("%s",buff);
+    for (int i = 0; i < 23 - (strlen(buff) + 1); i++) printf(" ");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        int nb = 3 - sprintf(buff,"%d",tableauDeSommets(ourData)[i]);
+        printf("|");
+        for (int j = 0; j < 3 + nb; j++) printf(" ");
+        printf("%s",buff);
+        for (int j = 0; j < 3; j++) printf(" ");
+    }
+    printf("|");
+    
+    
+    
+    
+    printf("\n");
+    
+    
+    for (int i = 0; i < 23; i++) printf("-");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        for (int j = 0; j < 10; j++) printf("-");
+    }
+    
+    printf("\n");
+    
+    
+    strcpy(buff,"| Durees");
+    printf("%s",buff);
+    for (int i = 0; i < 23 - (strlen(buff) + 1); i++) printf(" ");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        int nb = 3 - sprintf(buff,"%d",tableauDurees(ourData)[i]);
+        printf("|");
+        for (int j = 0; j < 3 + nb; j++) printf(" ");
+        printf("%s",buff);
+        for (int j = 0; j < 3; j++) printf(" ");
+    }
+    printf("|");
+    
+    
+    
+    printf("\n");
+    
+    
+    for (int i = 0; i < 23; i++) printf("-");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        for (int j = 0; j < 10; j++) printf("-");
+    }
+    
+    printf("\n");
+    
+    
+    strcpy(buff,"| Date au plus tot");
+    printf("%s",buff);
+    for (int i = 0; i < 23 - (strlen(buff) + 1); i++) printf(" ");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        int nb = 3 - sprintf(buff,"%d",DateAuPlusTot(tableauDeSommets(ourData)[i],ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),tableauDurees(ourData),tableauDeSommets(ourData)));
+        printf("|");
+        for (int j = 0; j < 3 + nb; j++) printf(" ");
+        printf("%s",buff);
+        for (int j = 0; j < 3; j++) printf(" ");
+    }
+    printf("|");
+    
+
+    
+    
+    printf("\n");
+    
+    
+    for (int i = 0; i < 23; i++) printf("-");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        for (int j = 0; j < 10; j++) printf("-");
+    }
+    
+    printf("\n");
+    
+    
+    strcpy(buff,"| Date au plus tard");
+    printf("%s",buff);
+    for (int i = 0; i < 23 - (strlen(buff) + 1); i++) printf(" ");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        int nb = 3 - sprintf(buff,"%d",DateAuPlusTard(tableauDeSommets(ourData)[i],ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),TabDeSuccesseurs(ourData, tableauDeSommets(ourData)),tableauDurees(ourData),tableauDeSommets(ourData)));
+        printf("|");
+        for (int j = 0; j < 3 + nb; j++) printf(" ");
+        printf("%s",buff);
+        for (int j = 0; j < 3; j++) printf(" ");
+    }
+    printf("|");
+
 }

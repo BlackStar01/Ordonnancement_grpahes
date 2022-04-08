@@ -1,14 +1,3 @@
-// int trouverIndiceSommet(int valeurSommet, int *tab)
-// {
-//     int indice = -1;
-//     for (int i = 0; i < nbrSommets(); i++)
-//     {
-//         if (valeurSommet == tab[i]) indice = i;
-//     }
-    
-//     return indice;
-// }
-
 int DateAuPlusTot(int sommet, File **TabPredecesseur, int *TabDurees, int *tabSommet){
     int Sommet = trouverIndiceSommet(sommet, tabSommet);
     File *copiePredecesseur = initialisationFile();

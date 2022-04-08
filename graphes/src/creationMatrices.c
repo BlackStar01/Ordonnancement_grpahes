@@ -1,6 +1,6 @@
 #include "../../fichiers/src/traitementFichier.c"
 
-bool **creationMatriceAdjacence(int nbrSommets, File *predecesseurs)
+bool **creationMatriceAdjacence(int nbrSommets, File *predecesseurs,int *tabS)
 {
     bool **matriceAdjacence = (bool **)malloc(nbrSommets * sizeof(bool*));
     File **TabPredecesseurs = initialisationTabDeFile(nbrSommets);
@@ -17,18 +17,19 @@ bool **creationMatriceAdjacence(int nbrSommets, File *predecesseurs)
     }
     TabPredecesseurs = ConvertFileEnTabDeFile(predecesseurs);
     
-    int p =0;
+    int p = 0;
     for (int i = 0; i < nbrSommets; i++)
     {       
-        if (nbrElementsFile(TabPredecesseurs[i]) == 0) continue;
+        // if (nbrElementsFile(TabPredecesseurs[i]) == 0) continue;
         
         while (TabPredecesseurs[i]->firstElement != NULL)
         {
+            printf("ok");
             int compteur = 0;
             while (compteur < nbrElementsFile(TabPredecesseurs[i]))
             {
                 p = defiler(TabPredecesseurs[i]);
-                matriceAdjacence[p - 1][i] = 1;                
+                matriceAdjacence[trouverIndiceSommet(p,tabS)][i] = 1;                
                 compteur++;
             }
         }

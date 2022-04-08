@@ -25,17 +25,6 @@ int nbrSommets()
     return compt;
 }
 
-int trouverIndiceSommet(int valeurSommet, int *tab)
-{
-    int indice = -1;
-    for (int i = 0; i < nbrSommets(); i++)
-    {
-        if (valeurSommet == tab[i]) indice = i;
-    }
-    
-    return indice;
-}
-
 bool detectionArcNegatif(int *tab)
 {
     bool result = false;
@@ -78,29 +67,17 @@ int *tableauDeSommets(File *uneFile)
     return tab;
 }
 
-/* int *tableauDurees(File *uneFile)
+int trouverIndiceSommet(int valeurSommet, int *tab)
 {
-    File *f1 = initialisationFile();
-    f1 = copieFile(uneFile);
-    int i = 1, *tab = malloc(nbrSommets()*sizeof(int));
-    
-    defiler(f1);
-    tab[0] = defiler(f1);
-    
-    while (f1->firstElement->suivant->suivant != NULL)
+    int indice = -1;
+    for (int i = 0; i < nbrSommets(); i++)
     {
-        if (defiler(f1) == -1)
-        {
-            defiler(f1);
-            tab[i] = defiler(f1);
-            i++;
-        }
+        if (valeurSommet == tab[i]) indice = i;
     }
     
-    tab[i] = '\0';
-    return tab;
+    return indice;
 }
- */
+
 int *tableauDurees(File *uneFile)
 {
     File *f1 = initialisationFile();
@@ -123,7 +100,7 @@ int *tableauDurees(File *uneFile)
     return tab;
 }
 
-File **TabDeSuccesseurs(File *uneFile , int *tabSommets)
+File **TabDeSuccesseurs(File *uneFile, int *tabS)
 {
     File *f1 = initialisationFile();
     File **TabDeSuccesseurs = malloc(nbrSommets() * sizeof(File));
@@ -160,7 +137,7 @@ File **TabDeSuccesseurs(File *uneFile , int *tabSommets)
             defiler(f1);
             defiler(f1);
         }else{
-            enfiler(TabDeSuccesseurs[trouverIndiceSommet(alpha, tabSommets)], index + 1);
+            enfiler(TabDeSuccesseurs[trouverIndiceSommet(alpha,tabS)], index + 1);
         }
     }
     

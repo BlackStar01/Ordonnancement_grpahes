@@ -15,12 +15,12 @@ struct Graphe
 
 /* ----------- Création de la matrice d'ajacence ------------  */
 
-Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecesseurs)
+Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecesseurs, int *tabSommet)
 {   
     Graphe *monGraphe = (Graphe *)malloc(sizeof(Graphe));
     
     monGraphe->nbrSommets = nbrSommets;
-    monGraphe->matriceAdjacence = creationMatriceAdjacence(nbrSommets, predecesseurs);
+    monGraphe->matriceAdjacence = creationMatriceAdjacence(nbrSommets, predecesseurs,tabSommet);
     monGraphe->matriceValeurs = creationMatriceValeurs(nbrSommets, tableauDurees, monGraphe->matriceAdjacence);
     
     return monGraphe;
