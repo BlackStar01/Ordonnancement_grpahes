@@ -24,7 +24,6 @@ bool **creationMatriceAdjacence(int nbrSommets, File *predecesseurs,int *tabS)
         
         while (TabPredecesseurs[i]->firstElement != NULL)
         {
-            printf("ok");
             int compteur = 0;
             while (compteur < nbrElementsFile(TabPredecesseurs[i]))
             {

@@ -21,6 +21,8 @@ int DateAuPlusTot(int sommet, File **TabPredecesseur, int *TabDurees, int *tabSo
     }
     
     dateAuPlusTot = TabDurees[trouverIndiceSommet(sMax, tabSommet)] + max;
+    if (TabDurees[trouverIndiceSommet(sMax, tabSommet)] == max) dateAuPlusTot = TabDurees[trouverIndiceSommet(sMax, tabSommet)];
+    
     EscapeLoop:;
     return dateAuPlusTot;
 }
@@ -41,7 +43,7 @@ int DateAuPlusTard(int sommet, File **TabPredecesseur, File **TabSuccesseur, int
     while (copieSuccesseur->firstElement != NULL)
     {       
         s = defiler(copieSuccesseur);
-        int nvDate = DateAuPlusTard(sMin, TabPredecesseur, TabPredecesseur, TabDurees, tabSommet);
+        int nvDate = DateAuPlusTard(s, TabPredecesseur, TabPredecesseur, TabDurees, tabSommet);
         if(nvDate < min) {
             min = nvDate;
             sMin = s;

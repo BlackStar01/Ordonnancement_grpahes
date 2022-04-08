@@ -30,12 +30,17 @@ void LectureDuFichier()
     // Et on enregistre les donnees dans ourData    
     ourData = initialisationFile();
     ourData = copieFile(data);
-    
+    printf("\n\n ----------------------------------- M E N U ---------------------------------------- \n\n");
     printf("\n Données recupérées avec succès ...\n");
 }
 
 void constructionDuGraphe(){
-    
+    if(ourData == NULL)
+    {
+        printf("\n\n Erreur : Aucune donnée n' a été lue!! \n\n");
+        return;
+    }
+
     File *fileP = initialisationFile();
     fileP = fileDePredecesseurs(ourData);
     int *tabDurees = malloc(nbrSommets() * sizeof(int));
@@ -48,40 +53,96 @@ void constructionDuGraphe(){
 }
 
 void AlgoDetectCircuit(){
+if(ourGraph == NULL)
+    {
+        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
+        return;
+    }
     printf("%s",(!detectionCircuit(ourGraph))?"\n Le graphe ne possède pas de circuit !\n":"\n Il y a un circuit dans le graphe !\n");
 }
 
 void AlgoDetectArcNegatif(){
+if(ourData == NULL)
+    {
+        printf("\n\n Erreur : Aucune donnée n' a été lue!! \n\n");
+        return;
+    }
     printf("%s",(!detectionArcNegatif(tableauDurees(ourData)))?"\n Le graphe ne possède pas d'arc négatif !\n":"\n Le graphe contient un arc négatif !\n");
 }
 
 void AlgoPointEntreeUnique(){
+    if(ourGraph == NULL)
+    {
+        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
+        return;
+    }
     printf("%s",(!detectionPointEntreeUnique(ourGraph->matriceAdjacence))?"\n Le graphe a  plusieurs points  d' entrée  qui  sont : ":"\n Le graphe a  un  point  d' entrée unique  qui est :");
     afficherFile(detectPointEntree(ourGraph));
     printf("\n");    
 }
 
 void AlgoPointSortieUnique(){
+    if(ourGraph == NULL)
+    {
+        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
+        return;
+    }
+    
     printf("%s",(!detectionPointSortieUnique(ourGraph->matriceAdjacence))?"\n Le graphe a  plusieurs points  de sortie  qui  sont : ":"\n Le graphe a  un  point  de sortie unique  qui est :");
     afficherFile(detectPointSortie(ourGraph));
     printf("\n");    
 }
 
 void AfficherMatriceAdjacence(){
+    if(ourGraph == NULL)
+    {
+        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
+        return;
+    }
+    
     printf("\n\n ------------------------ Matrices d'adjacence -----------------------\n\n");
     afficherMatriceBooleenne(ourGraph->matriceAdjacence, nbrSommets(), tableauDeSommets(ourData));
 }
 
 void AfficherMatriceValeurs(){
+    if(ourGraph == NULL)
+    {
+        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
+        return;
+    }
+    
     printf("\n\n ---------------------- Matrice de valeurs  ---------------------------\n\n");
     afficherMatriceNormale(ourGraph->matriceValeurs, nbrSommets(), tableauDeSommets(ourData));
 }
 
 void AfficherRangs(){
+    if(ourGraph == NULL)
+    {
+        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
+        return;
+    }
+    
     rangSommets(ourGraph, ourData);
 }
 
 void AfficherCalendrier(){
+    if(ourGraph == NULL)
+    {
+        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
+        return;
+    }
+    
+    
+
+    printf("\n\n ----------------------------------  Affichage  Du Calendrier de  %s --------------------------------------\n\n",getPath());
+        
+    if (detectionArcNegatif(tableauDurees(ourData)) || detectionCircuit(ourGraph))
+    {
+        printf("\n\n Impossible  d' établir  un calendrier  car le graphe n'est  pas  d'ordonnancement !!\n\n");
+        return;
+    }
+    
+    
     char buff[100];
     
     for (int i = 0; i < 23; i++) printf("-");
@@ -166,7 +227,7 @@ void AfficherCalendrier(){
     }
     printf("|");
     
-
+    
     
     
     printf("\n");
@@ -195,5 +256,41 @@ void AfficherCalendrier(){
         for (int j = 0; j < 3; j++) printf(" ");
     }
     printf("|");
+    
+    printf("\n");
+   
+    for (int i = 0; i < 23; i++) printf("-");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        for (int j = 0; j < 10; j++) printf("-");
+    }
+    
+    printf("\n");
+    
+    
+    strcpy(buff,"| Marge Totale");
+    printf("%s",buff);
+    for (int i = 0; i < 23 - (strlen(buff) + 1); i++) printf(" ");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        int nb = 3 - sprintf(buff,"%d",margeTotale(tableauDeSommets(ourData)[i],ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),TabDeSuccesseurs(ourData, tableauDeSommets(ourData)),tableauDurees(ourData),tableauDeSommets(ourData)));
+        printf("|");
+        for (int j = 0; j < 3 + nb; j++) printf(" ");
+        printf("%s",buff);
+        for (int j = 0; j < 3; j++) printf(" ");
+    }
+    printf("|");
+    
+    printf("\n");
 
+    for (int i = 0; i < 23; i++) printf("-");
+    
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        for (int j = 0; j < 10; j++) printf("-");
+    }
+    
+    printf("\n\n");
 }

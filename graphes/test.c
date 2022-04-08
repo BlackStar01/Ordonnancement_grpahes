@@ -4,7 +4,7 @@ int main(int argc, char const *argv[])
 {
     
     LectureDuFichier();  
-    // constructionDuGraphe();
+    constructionDuGraphe();
     // AlgoDetectCircuit();
     AfficherCalendrier();
     /* char **aaa = findFiles();
@@ -84,9 +84,9 @@ int main(int argc, char const *argv[])
     {
         printf("\n Il y a un ou plusieurs arcs négatifs \n");
     }
-    
+
     printf("\n\n ---------------------- Détection de circuit --------------------\n\n");
-    
+
     if (detectionCircuit(g))
     {
         printf("\n Il y a un circuit \n");
@@ -99,22 +99,22 @@ int main(int argc, char const *argv[])
     if (!detectionArcNegatif(tableauDurees(data)) && !detectionCircuit(g))
     {
         printf("\n\n ---------------------------------- IV - Calculer les rangs de tous les sommets du graphe. --------------------------------------\n\n");
-        
+
         printf("\n\n ------------------- Calcul des rangs des sommets  -----------------\n\n");
-        
+
         rangSommets(g, data);
         
         printf("\n\n ---------------------------------- IV - Calculer le calendrier au plus tôt, le calendrier au plus tard et les marges --------------------------------------\n\n");
         
         printf("\n\n --------------------------  Calendrier  ---------------------------\n\n");
-        
+
         printf("\n\n ------------------------- Dates au plus tot --------------------------\n\n");
-        
+
         for (int i = 0; i < nbrSommets(); i++)
         {
             printf("\n Date au plus tôt du sommet de %d => %d\n", tabSommets[i], DateAuPlusTot(tabSommets[i], TabFilePred, tabDurees, tabSommets));
         }
-        
+
         printf("\n\n --------------------- Date au plus tard -----------------------\n\n");
         for (int i = 0; i < nbrSommets(); i++)
         {
