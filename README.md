@@ -1,22 +1,26 @@
-#EFREI PROJET L3 - Théorie des graphes 
+# EFREI PROJET L3 - Théorie des graphes 
 
-####PROMO : 2024 (en théorie ... :) )
+## PROMO : 2024 (en théorie ... :) )
 
-####@author:
-    -- Vital Warren Mahussi AGBANOU ( vitalwarren@yahoo.com )
-    -- Bryan Kessel KOUAM FOZEU
-    -- Arielle GONDO
-    -- Anriane MBUGUEM KOYOUE
+## author:
+    *   Vital Warren Mahussi AGBANOU ( vitalwarren@yahoo.com )
+    *   Bryan Kessel KOUAM FOZEU
+    *   Arielle GONDO
+    *   Anriane MBUGUEM KOYOUE
 
-####COMPTABILITÉ : Linux 
+## COMPTABILITÉ : Linux 
 
-####OBJECTIF
+## OBJECTIF
 
-####TECHNOLOGIES
-    Project is created with:
+    *   Construction d'un graphe
+    *   Verification de la possibilité d'un grpahe d'ordonnancement
+    *   Calcul des rangs et des calendriers
+
+## TECHNOLOGIES
+    This Project is created with:
     * C Language
         
-####LANCER LE PROJET
+## LANCER LE PROJET
 
 ```
 $ cd graphes
