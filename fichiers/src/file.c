@@ -3,11 +3,6 @@
 #include <unistd.h>
 #include <string.h>
 
-/* Pour lire dans un dossier ... pas un fichier  */
-#include <dirent.h>
-DIR *db;
-struct dirent *dirp;
-
 #define PATHBASE "../fichiers/tableauTest/"
 char Path[100];
 
@@ -19,30 +14,6 @@ void setPath(char *FileName){
 char *getPath(){
     return Path;
 }
-
-/* char **findFiles()
-{
-    char **tableauDeFichiers = malloc(12*sizeof(char*)); 
-    char directory[30];
-    int i = 0;
-    printf("Entrer le nom du dossier contenant les fichiers : ");
-    scanf("%s", directory);
-    if ((db = opendir(directory)) != NULL)
-    {
-        while ((dirp = readdir(db)) != NULL)
-        {
-            tableauDeFichiers[i] = dirp->d_name;
-            /* printf("Fichier : %s/%s \n", directory, dirp->d_name); *
-            i++;
-        }
-    }
-    else
-    {
-        printf(" Impossible d'ouvrir ce dossier \n");
-    }
-
-    return tableauDeFichiers;
-} */
 
 typedef struct Element Element;
 struct Element

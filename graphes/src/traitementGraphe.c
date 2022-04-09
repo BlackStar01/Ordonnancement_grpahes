@@ -172,8 +172,8 @@ void rangSommets(Graphe *monGraphe, File *data)
         }        
         //afficherFile(pointsEntree);
     }
-    
-    printf(" Rang : %d \n\n", compt);
+    printf("------------------------------------------------");
+    printf(" Rang : %d \n\n\n", compt);
     /* Retrouver les indices et mettre les lignes à 0 */
     while (pointsEntree->firstElement != NULL)
     {
