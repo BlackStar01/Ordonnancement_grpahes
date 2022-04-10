@@ -126,6 +126,7 @@ void AfficherRangs(){
 }
 
 void AfficherCalendrier(){
+
     if(ourGraph == NULL)
     {
         printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
@@ -136,7 +137,7 @@ void AfficherCalendrier(){
 
     printf("\n\n ----------------------------------  Affichage  Du Calendrier de  %s --------------------------------------\n\n",getPath());
         
-    if (detectionArcNegatif(tableauDurees(ourData)) || detectionCircuit(ourGraph))
+    if (detectionArcNegatif(tableauDurees(ourData)) || detectionCircuit(ourGraph) || detectPointEntree(ourGraph) == NULL || detectPointSortie(ourGraph) == NULL)
     {
         printf("\n\n Impossible  d' établir  un calendrier  car le graphe n'est  pas  d'ordonnancement !!\n\n");
         return;
@@ -249,7 +250,7 @@ void AfficherCalendrier(){
     
     for (int i = 0; i < nbrSommets(); i++)
     {
-        int nb = 3 - sprintf(buff,"%d",DateAuPlusTard(tableauDeSommets(ourData)[i],ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),TabDeSuccesseurs(ourData, tableauDeSommets(ourData)),tableauDurees(ourData),tableauDeSommets(ourData)));
+        int nb = 3 - sprintf(buff,"%d",DateAuPlusTard(tableauDeSommets(ourData)[i],ourGraph,ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),TabDeSuccesseurs(ourData, tableauDeSommets(ourData)),tableauDurees(ourData),tableauDeSommets(ourData)));
         printf("|");
         for (int j = 0; j < 3 + nb; j++) printf(" ");
         printf("%s",buff);
@@ -275,7 +276,7 @@ void AfficherCalendrier(){
     
     for (int i = 0; i < nbrSommets(); i++)
     {
-        int nb = 3 - sprintf(buff,"%d",margeTotale(tableauDeSommets(ourData)[i],ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),TabDeSuccesseurs(ourData, tableauDeSommets(ourData)),tableauDurees(ourData),tableauDeSommets(ourData)));
+        int nb = 3 - sprintf(buff,"%d",margeTotale(tableauDeSommets(ourData)[i],ourGraph,ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),TabDeSuccesseurs(ourData, tableauDeSommets(ourData)),tableauDurees(ourData),tableauDeSommets(ourData)));
         printf("|");
         for (int j = 0; j < 3 + nb; j++) printf(" ");
         printf("%s",buff);
