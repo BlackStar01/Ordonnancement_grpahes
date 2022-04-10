@@ -1,0 +1,93 @@
+ Données recupérées avec succès ...
+
+ Graphe  créé avec succès... 
+
+
+ ------------------------ Matrices d'adjacence -----------------------
+
+      1    2    3    4    5    6    7    8    9    10   11   12   13   
+
+1     0    0    1    0    0    0    0    0    0    0    0    0    0  
+
+2     0    0    0    1    0    0    0    0    0    0    0    0    0  
+
+3     0    0    0    1    0    0    0    0    0    0    0    1    0  
+
+4     0    0    0    0    1    0    0    0    0    0    1    0    0  
+
+5     0    0    0    0    0    1    0    0    0    0    0    0    0  
+
+6     0    0    0    0    0    0    1    0    0    0    0    0    1  
+
+7     0    0    0    0    0    0    0    1    0    0    0    0    0  
+
+8     0    0    0    0    0    0    0    0    1    0    0    0    0  
+
+9     0    0    0    0    0    0    0    0    0    0    0    0    0  
+
+10    0    0    0    0    0    0    0    0    0    0    0    0    0  
+
+11    0    0    0    0    0    0    0    0    0    1    0    0    0  
+
+12    0    0    0    0    0    0    0    0    0    0    0    0    1  
+
+13    0    0    0    1    0    0    0    0    0    0    0    0    0  
+
+
+
+ ---------------------- Matrice de valeurs  ---------------------------
+
+      1    2    3    4    5    6    7    8    9    10   11   12   13   
+
+1     0    0    2    0    0    0    0    0    0    0    0    0    0  
+
+2     0    0    0    5    0    0    0    0    0    0    0    0    0  
+
+3     0    0    0    4    0    0    0    0    0    0    0    4    0  
+
+4     0    0    0    0    2    0    0    0    0    0    2    0    0  
+
+5     0    0    0    0    0    5    0    0    0    0    0    0    0  
+
+6     0    0    0    0    0    0    5    0    0    0    0    0    5  
+
+7     0    0    0    0    0    0    0    9    0    0    0    0    0  
+
+8     0    0    0    0    0    0    0    0    2    0    0    0    0  
+
+9     0    0    0    0    0    0    0    0    0    0    0    0    0  
+
+10    0    0    0    0    0    0    0    0    0    0    0    0    0  
+
+11    0    0    0    0    0    0    0    0    0    1    0    0    0  
+
+12    0    0    0    0    0    0    0    0    0    0    0    0    1  
+
+13    0    0    0    9    0    0    0    0    0    0    0    0    0  
+
+
+ Il y a un circuit dans le graphe !
+
+ Le graphe ne possède pas d'arc négatif !
+Points d'entrée :  1 , 2 ,
+ Il y a plusieurs points d'entrée 
+
+
+ Le graphe a  plusieurs points  d' entrée  qui  sont : 1 -> 2 -> NULL
+
+Points de sorties :  9 , 10 ,
+ Il y a plusieurs points de sortie 
+
+
+ Le graphe a  plusieurs points  de sortie  qui  sont : 9 -> 10 -> NULL
+
+
+ Ce n'est pas le graphe n'est pas d'ordonnancement ... 
+
+
+ ----------------------------------  Affichage  Du Calendrier de  ../fichiers/tableauTest/L3-C1-graphe1.txt --------------------------------------
+
+
+ Ce n'est pas le graphe n'est pas d'ordonnancement ... 
+
+

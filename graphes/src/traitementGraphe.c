@@ -16,13 +16,13 @@ struct Graphe
 /* ----------- Création de la matrice d'ajacence ------------  */
 
 Graphe *initialisationGraphe(int nbrSommets, int *tableauDurees, File *predecesseurs, int *tabSommet)
-{   
+{
     Graphe *monGraphe = (Graphe *)malloc(sizeof(Graphe));
-    
+
     monGraphe->nbrSommets = nbrSommets;
-    monGraphe->matriceAdjacence = creationMatriceAdjacence(nbrSommets, predecesseurs,tabSommet);
+    monGraphe->matriceAdjacence = creationMatriceAdjacence(nbrSommets, predecesseurs, tabSommet);
     monGraphe->matriceValeurs = creationMatriceValeurs(nbrSommets, tableauDurees, monGraphe->matriceAdjacence);
-    
+
     return monGraphe;
 }
 
@@ -44,13 +44,13 @@ Graphe *copieGraphe(Graphe *model)
 {
     int nbrSommets = model->nbrSommets;
     Graphe *monGraphe = (Graphe *)malloc(sizeof(Graphe));
-    
+
     monGraphe->matriceValeurs = (int **)malloc(nbrSommets * sizeof(int *));
-    
+
     monGraphe->matriceAdjacence = (bool **)malloc(nbrSommets * sizeof(int *));
-    
+
     monGraphe->nbrSommets = model->nbrSommets;
-    
+
     /* Copie de la matrice d'adjacence et la matrice de valeurs */
     for (int i = 0; i < nbrSommets; i++)
     {
@@ -62,9 +62,17 @@ Graphe *copieGraphe(Graphe *model)
             monGraphe->matriceValeurs[i][j] = model->matriceValeurs[i][j];
         }
     }
-    
+
     return monGraphe;
 }
+
+// ------------------Verifier si le graphe est créé-----------------
+
+bool checkErrorGraphe(Graphe *graph)
+{
+    return (graph == NULL);
+}
+
 
 /*---------------------  Détection de circuit   -----------------*/
 
@@ -119,14 +127,14 @@ bool detectionCircuit(Graphe *monGraphe)
 {
     Graphe *copie = copieGraphe(monGraphe);
     File *FileDePoint = initialisationFile();
-    
+
     for (int i = 0; i < copie->nbrSommets; i++)
     {
         FileDePoint = FileCat(FileDePoint, FileCat(detectPointEntree(copie), detectPointSortie(copie)));
-        
+
         Element *firstPoint = malloc(sizeof(Element));
         firstPoint = FileDePoint->firstElement;
-        
+
         while (firstPoint != NULL)
         {
             for (int j = 0; j < copie->nbrSommets; j++)
@@ -158,11 +166,10 @@ void rangSommets(Graphe *monGraphe, File *data)
     File *copieData = initialisationFile();
 
     copieData = copieFile(data);
-    
+
     copieMonGraphe = copieGraphe(monGraphe);
     pointsEntree = detectPointEntree(copieMonGraphe);
-    afficherFile(pointsEntree);
-    
+
     if (compt == 1)
     {
         File *temp = initialisationFile();
@@ -170,10 +177,9 @@ void rangSommets(Graphe *monGraphe, File *data)
         while (temp->firstElement != NULL)
         {
             printf("Sommet %d \n", defiler(temp));
-        }        
+        }
     }
-    printf("------------------------------------------------");
-    printf(" Rang : %d \n\n\n", compt);
+    printf("------------------------------------------------ Rang : %d \n\n\n", compt);
     /* Retrouver les indices et mettre les lignes à 0 */
     while (pointsEntree->firstElement != NULL)
     {
@@ -186,22 +192,26 @@ void rangSommets(Graphe *monGraphe, File *data)
                     if (copieMonGraphe->matriceAdjacence[i][j] == 1)
                     {
                         copieMonGraphe->matriceAdjacence[i][j] = 0;
-                       /*  printf(" indice %d \n", j + 1);   */ 
+                        /*  printf(" indice %d \n", j + 1);   */
                     }
                     if (i == j)
                     {
                         /* Astuce de Kessel ... :) */
                         copieMonGraphe->matriceAdjacence[i][j] = 1;
                     }
-                    
                 }
             }
         }
+        printf("\t -> Suppression du sommet %d \n", pointsEntree->firstElement->nombre);
         pointsEntree->firstElement = pointsEntree->firstElement->suivant;
     }
+    printf("\n\n");
 
     compt++;
     pointsEntree = detectPointEntree(copieMonGraphe);
+    printf(" File des nouveaux points d'entrée : ");
+    afficherFile(pointsEntree);
+    printf("\n\n");
     if (pointsEntree->firstElement == NULL)
     {
         printf(" on escape \n");
@@ -218,5 +228,46 @@ void rangSommets(Graphe *monGraphe, File *data)
     }
     rangSommets(copieMonGraphe, copieData);
     escapeLoop:;
+    compt = 1;
     pointsEntree = initialisationFile();
+}
+
+
+// ---------------Verifier  si  le  graphe  est connexe------------
+bool verifConnexite(Graphe *monGraphe)
+{
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        bool PasDePredecesseur = true;
+        for (int j = 0; j < nbrSommets(); j++)
+        {
+            if (monGraphe->matriceAdjacence[j][i] == 1 && i != j)
+            {
+                PasDePredecesseur = false;
+                break;
+            }
+        }
+
+        if (PasDePredecesseur)
+        {
+            bool PasDeSuccesseur = true;
+            for (int j = 0; j < nbrSommets(); j++)
+            {
+                if (monGraphe->matriceAdjacence[i][j] == 1 && i != j)
+                {
+                    PasDeSuccesseur = false;
+                    break;
+                }
+            }
+            if (PasDeSuccesseur) return false;
+        }
+    }
+    return true;
+}
+
+//--------------- Verifier si le graphe est d'ordonnancement-------
+
+bool checkOrdonnancement(File *Data, Graphe *Graph)
+{
+    return (!verifConnexite(Graph) || detectionArcNegatif(tableauDurees(Data)) || detectionCircuit(Graph) || detectPointEntree(Graph) == NULL || detectPointSortie(Graph) == NULL);
 }

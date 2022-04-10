@@ -38,7 +38,6 @@ bool detectionArcNegatif(int *tab)
         }
         i++;
     }
-    
     return result;
 }
 

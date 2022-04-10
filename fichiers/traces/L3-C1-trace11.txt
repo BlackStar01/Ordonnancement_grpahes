@@ -1,0 +1,387 @@
+
+ Données recupérées avec succès ...
+
+ Graphe  créé avec succès... 
+
+
+ ------------------------ Matrices d'adjacence -----------------------
+
+      1    2    3    4    5    6    7    8    
+
+1     0    1    0    1    1    0    0    0  
+
+2     0    0    1    0    0    0    0    1  
+
+3     0    0    0    0    0    0    1    0  
+
+4     0    1    0    0    0    1    0    1  
+
+5     0    0    0    1    0    1    1    0  
+
+6     0    0    0    0    0    0    0    1  
+
+7     0    0    0    0    0    0    0    1  
+
+8     0    0    0    0    0    0    0    0  
+
+
+
+ ---------------------- Matrice de valeurs  ---------------------------
+
+      1    2    3    4    5    6    7    8    
+
+1     0    1    0    1    1    0    0    0  
+
+2     0    0    1    0    0    0    0    1  
+
+3     0    0    0    0    0    0    4    0  
+
+4     0    2    0    0    0    2    0    2  
+
+5     0    0    0    5    0    5    5    0  
+
+6     0    0    0    0    0    0    0    6  
+
+7     0    0    0    0    0    0    0    3  
+
+8     0    0    0    0    0    0    0    0  
+
+
+ Le graphe ne possède pas de circuit !
+
+ Le graphe ne possède pas d'arc négatif !
+Points d'entrée :  1 ,
+ Il y a un seul point d'entrée 
+
+
+ Le graphe a  un  point  d' entrée unique  qui est :1 -> NULL
+
+Points de sorties :  8 ,
+ Il y a un seul point de sortie 
+
+
+ Le graphe a  un  point  de sortie unique  qui est :8 -> NULL
+
+Sommet 1 
+------------------------------------------------ Rang : 1 
+
+
+         -> Suppression du sommet 1 
+
+
+ File des nouveaux points d'entrée : 5 -> NULL
+
+
+Sommet 5 
+------------------------------------------------ Rang : 2 
+
+
+         -> Suppression du sommet 5 
+
+
+ File des nouveaux points d'entrée : 4 -> NULL
+
+
+Sommet 4 
+------------------------------------------------ Rang : 3 
+
+
+         -> Suppression du sommet 4 
+
+
+ File des nouveaux points d'entrée : 2 -> 6 -> NULL
+
+
+Sommet 2 
+Sommet 6 
+------------------------------------------------ Rang : 4 
+
+
+         -> Suppression du sommet 2 
+         -> Suppression du sommet 6 
+
+
+ File des nouveaux points d'entrée : 3 -> NULL
+
+
+Sommet 3 
+------------------------------------------------ Rang : 5 
+
+
+         -> Suppression du sommet 3 
+
+
+ File des nouveaux points d'entrée : 7 -> NULL
+
+
+Sommet 7 
+------------------------------------------------ Rang : 6 
+
+
+         -> Suppression du sommet 7 
+
+
+ File des nouveaux points d'entrée : 8 -> NULL
+
+
+Sommet 8 
+------------------------------------------------ Rang : 7 
+
+
+         -> Suppression du sommet 8 
+
+
+ File des nouveaux points d'entrée : NULL
+
+
+ on escape 
+
+
+ ----------------------------------  Affichage  Du Calendrier de  ../fichiers/tableauTest/L3-C1-graphe11.txt --------------------------------------
+
+
+
+---------------Date Au Plus Tot de 1----------------
+
+
+
+---------------Date Au Plus Tot de 2----------------
+
+
+
+ Predecesseur(s) de 2 est(sont) : 1 -> 4 -> NULL
+Avec pour date(s) au plus tôt : 0 , 6 , 
+Date au plus tôt  =  8 
+
+
+
+
+---------------Date Au Plus Tot de 3----------------
+
+
+
+ Predecesseur(s) de 3 est(sont) : 2 -> NULL
+Avec pour date(s) au plus tôt : 8 , 
+Date au plus tôt  =  9 
+
+
+
+
+---------------Date Au Plus Tot de 4----------------
+
+
+
+ Predecesseur(s) de 4 est(sont) : 1 -> 5 -> NULL
+Avec pour date(s) au plus tôt : 0 , 1 , 
+Date au plus tôt  =  6 
+
+
+
+
+---------------Date Au Plus Tot de 5----------------
+
+
+
+ Predecesseur(s) de 5 est(sont) : 1 -> NULL
+Avec pour date(s) au plus tôt : 0 , 
+Date au plus tôt  =  1 
+
+
+
+
+---------------Date Au Plus Tot de 6----------------
+
+
+
+ Predecesseur(s) de 6 est(sont) : 4 -> 5 -> NULL
+Avec pour date(s) au plus tôt : 6 , 1 , 
+Date au plus tôt  =  8 
+
+
+
+
+---------------Date Au Plus Tot de 7----------------
+
+
+
+ Predecesseur(s) de 7 est(sont) : 3 -> 5 -> NULL
+Avec pour date(s) au plus tôt : 9 , 1 , 
+Date au plus tôt  =  13 
+
+
+
+
+---------------Date Au Plus Tot de 8----------------
+
+
+
+ Predecesseur(s) de 8 est(sont) : 2 -> 4 -> 6 -> 7 -> NULL
+Avec pour date(s) au plus tôt : 8 , 6 , 8 , 13 , 
+Date au plus tôt  =  16 
+
+
+
+
+---------------Date Au Plus Tard de 1----------------
+
+
+ Date au plus tard de W = 16(Qui est egalement sa date au plus tot)
+
+
+ Le(s) successeur(s) de 1 est(sont) : 2 -> 4 -> 5 -> NULL
+
+
+ Avec pour date(s) au plus tard : 8 , 6 , 1 , 
+
+
+ Date au plus tard de 1 = dateAuPlusTard(5) - Duree(1) = 0 
+
+
+
+---------------Date Au Plus Tard de 2----------------
+
+
+ Date au plus tard de W = 16(Qui est egalement sa date au plus tot)
+
+
+ Le(s) successeur(s) de 2 est(sont) : 3 -> 8 -> NULL
+
+
+ Avec pour date(s) au plus tard : 9 , 16 , 
+
+
+ Date au plus tard de 2 = dateAuPlusTard(3) - Duree(2) = 8 
+
+
+
+---------------Date Au Plus Tard de 3----------------
+
+
+ Date au plus tard de W = 16(Qui est egalement sa date au plus tot)
+
+
+ Le(s) successeur(s) de 3 est(sont) : 7 -> NULL
+
+
+ Avec pour date(s) au plus tard : 13 , 
+
+
+ Date au plus tard de 3 = dateAuPlusTard(7) - Duree(3) = 9 
+
+
+
+---------------Date Au Plus Tard de 4----------------
+
+
+ Date au plus tard de W = 16(Qui est egalement sa date au plus tot)
+
+
+ Le(s) successeur(s) de 4 est(sont) : 2 -> 6 -> 8 -> NULL
+
+
+ Avec pour date(s) au plus tard : 8 , 10 , 16 , 
+
+
+ Date au plus tard de 4 = dateAuPlusTard(2) - Duree(4) = 6 
+
+
+
+---------------Date Au Plus Tard de 5----------------
+
+
+ Date au plus tard de W = 16(Qui est egalement sa date au plus tot)
+
+
+ Le(s) successeur(s) de 5 est(sont) : 4 -> 6 -> 7 -> NULL
+
+
+ Avec pour date(s) au plus tard : 6 , 10 , 13 , 
+
+
+ Date au plus tard de 5 = dateAuPlusTard(4) - Duree(5) = 1 
+
+
+
+---------------Date Au Plus Tard de 6----------------
+
+
+ Date au plus tard de W = 16(Qui est egalement sa date au plus tot)
+
+
+ Le(s) successeur(s) de 6 est(sont) : 8 -> NULL
+
+
+ Avec pour date(s) au plus tard : 16 , 
+
+
+ Date au plus tard de 6 = dateAuPlusTard(8) - Duree(6) = 10 
+
+
+
+---------------Date Au Plus Tard de 7----------------
+
+
+ Date au plus tard de W = 16(Qui est egalement sa date au plus tot)
+
+
+ Le(s) successeur(s) de 7 est(sont) : 8 -> NULL
+
+
+ Avec pour date(s) au plus tard : 16 , 
+
+
+ Date au plus tard de 7 = dateAuPlusTard(8) - Duree(7) = 13 
+
+
+
+---------------Date Au Plus Tard de 8----------------
+
+
+ Date au plus tard de W = 16(Qui est egalement sa date au plus tot)
+
+ 8 est un puit ...
+Date au plus tard de 8 = dateAuPlusTard(W) - Duree(8) = 16
+
+
+
+ Marge totale de 1 = DateAuPlusTard(1) - DateAuPlusTot(1) = 0
+
+
+
+ Marge totale de 2 = DateAuPlusTard(2) - DateAuPlusTot(2) = 0
+
+
+
+ Marge totale de 3 = DateAuPlusTard(3) - DateAuPlusTot(3) = 0
+
+
+
+ Marge totale de 4 = DateAuPlusTard(4) - DateAuPlusTot(4) = 0
+
+
+
+ Marge totale de 5 = DateAuPlusTard(5) - DateAuPlusTot(5) = 0
+
+
+
+ Marge totale de 6 = DateAuPlusTard(6) - DateAuPlusTot(6) = 2
+
+
+
+ Marge totale de 7 = DateAuPlusTard(7) - DateAuPlusTot(7) = 0
+
+
+
+ Marge totale de 8 = DateAuPlusTard(8) - DateAuPlusTot(8) = 0
+
+-------------------------------------------------------------------------------------------------------
+| Sommets             |     1   |     2   |     3   |     4   |     5   |     6   |     7   |     8   |
+-------------------------------------------------------------------------------------------------------
+| Durees              |     1   |     1   |     4   |     2   |     5   |     6   |     3   |     0   |
+-------------------------------------------------------------------------------------------------------
+| Date au plus tot    |     0   |     8   |     9   |     6   |     1   |     8   |    13   |    16   |
+-------------------------------------------------------------------------------------------------------
+| Date au plus tard   |     0   |     8   |     9   |     6   |     1   |    10   |    13   |    16   |
+-------------------------------------------------------------------------------------------------------
+| Marge Totale        |     0   |     0   |     0   |     0   |     0   |     2   |     0   |     0   |
+-------------------------------------------------------------------------------------------------------

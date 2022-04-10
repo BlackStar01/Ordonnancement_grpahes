@@ -7,18 +7,9 @@
 File *ourData;
 Graphe *ourGraph;
 
-void checkErrorGraphe(Graphe *graph)
+void errorGraphe()
 {
-    if(graph == NULL)
-    {
-        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
-        return;
-    }
-}
-
-bool checkOrdonnancement()
-{
-    return (detectionArcNegatif(tableauDurees(ourData)) || detectionCircuit(ourGraph) || detectPointEntree(ourGraph) == NULL || detectPointSortie(ourGraph) == NULL);
+    printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
 }
 
 void errorOrdonnancement()
@@ -28,7 +19,7 @@ void errorOrdonnancement()
 
 void LectureDuFichier()
 {
-    char c[15];
+    char c[30];
     printf("\n ----------------------------------- M E N U ---------------------------------------- \n");
     printf("\n Entrez le nom de ton fichier (Exemple: table 45.txt) \n");
     
@@ -72,24 +63,43 @@ void constructionDuGraphe(){
 }
 
 void AlgoDetectCircuit(){
-    checkErrorGraphe(ourGraph);
+    if(checkErrorGraphe(ourGraph))
+    {
+        errorGraphe();
+        return;
+    }
+
     printf("%s",(!detectionCircuit(ourGraph))?"\n Le graphe ne possède pas de circuit !\n":"\n Il y a un circuit dans le graphe !\n");
 }
 
 void AlgoDetectArcNegatif(){
-    checkErrorGraphe(ourGraph);
+    if(checkErrorGraphe(ourGraph))
+    {
+        errorGraphe();
+        return;
+    }
+
     printf("%s",(!detectionArcNegatif(tableauDurees(ourData)))?"\n Le graphe ne possède pas d'arc négatif !\n":"\n Le graphe contient un arc négatif !\n");
 }
 
 void AlgoPointEntreeUnique(){
-    checkErrorGraphe(ourGraph);
+    if(checkErrorGraphe(ourGraph))
+    {
+        errorGraphe();
+        return;
+    }
+
     printf("%s",(!detectionPointEntreeUnique(ourGraph->matriceAdjacence))?"\n Le graphe a  plusieurs points  d' entrée  qui  sont : ":"\n Le graphe a  un  point  d' entrée unique  qui est :");
     afficherFile(detectPointEntree(ourGraph));
     printf("\n");    
 }
 
 void AlgoPointSortieUnique(){
-    checkErrorGraphe(ourGraph);
+    if(checkErrorGraphe(ourGraph))
+    {
+        errorGraphe();
+        return;
+    }
     
     printf("%s",(!detectionPointSortieUnique(ourGraph->matriceAdjacence))?"\n Le graphe a  plusieurs points  de sortie  qui  sont : ":"\n Le graphe a  un  point  de sortie unique  qui est :");
     afficherFile(detectPointSortie(ourGraph));
@@ -97,21 +107,35 @@ void AlgoPointSortieUnique(){
 }
 
 void AfficherMatriceAdjacence(){
+    if(checkErrorGraphe(ourGraph))
+    {
+        errorGraphe();
+        return;
+    }
 
     printf("\n\n ------------------------ Matrices d'adjacence -----------------------\n\n");
     afficherMatriceBooleenne(ourGraph->matriceAdjacence, nbrSommets(), tableauDeSommets(ourData));
 }
 
 void AfficherMatriceValeurs(){
-    checkErrorGraphe(ourGraph);
-    
     printf("\n\n ---------------------- Matrice de valeurs  ---------------------------\n\n");
+   
+    if(checkErrorGraphe(ourGraph))
+    {
+        errorGraphe();
+        return;
+    }
+    
     afficherMatriceNormale(ourGraph->matriceValeurs, nbrSommets(), tableauDeSommets(ourData));
 }
 
 void AfficherRangs(){
-    checkErrorGraphe(ourGraph);
-    if (checkOrdonnancement())
+    if(checkErrorGraphe(ourGraph))
+    {
+        errorGraphe();
+        return;
+    }
+    if (checkOrdonnancement(ourData,ourGraph))
     {
         errorOrdonnancement();
         return;
@@ -120,16 +144,40 @@ void AfficherRangs(){
 }
 
 void AfficherCalendrier(){
-    checkErrorGraphe(ourGraph);
-    
     printf("\n\n ----------------------------------  Affichage  Du Calendrier de  %s --------------------------------------\n\n",getPath());
+    
+    if(checkErrorGraphe(ourGraph))
+    {
+        errorGraphe();
+        return;
+    }
         
-    if (checkOrdonnancement())
+    if (checkOrdonnancement(ourData,ourGraph))
     {
         errorOrdonnancement();
         return;
     }
+
+// ----------------------------Trace Dates Au Plus Tot-----------------------
+
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        traceDateAuPlusTot(tableauDeSommets(ourData)[i],ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),tableauDurees(ourData),tableauDeSommets(ourData));
+    }
     
+// ----------------------------Trace Dates Au Plus Tard-----------------------
+
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        traceDateAuPlusTard(tableauDeSommets(ourData)[i],ourGraph,ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),TabDeSuccesseurs(ourData, tableauDeSommets(ourData)),tableauDurees(ourData),tableauDeSommets(ourData));
+    }
+
+// ----------------------------Trace Marges Totales-----------------------
+
+    for (int i = 0; i < nbrSommets(); i++)
+    {
+        traceMargeTotale(tableauDeSommets(ourData)[i],ourGraph,ConvertFileEnTabDeFile(fileDePredecesseurs(ourData)),TabDeSuccesseurs(ourData, tableauDeSommets(ourData)),tableauDurees(ourData),tableauDeSommets(ourData));
+    }
     
     char buff[100];
 
