@@ -16,6 +16,16 @@ void checkErrorGraphe(Graphe *graph)
     }
 }
 
+bool checkOrdonnancement()
+{
+    return (detectionArcNegatif(tableauDurees(ourData)) || detectionCircuit(ourGraph) || detectPointEntree(ourGraph) == NULL || detectPointSortie(ourGraph) == NULL);
+}
+
+void errorOrdonnancement()
+{
+    printf("\n Ce n'est pas le graphe n'est pas d'ordonnancement ... \n");
+}
+
 void LectureDuFichier()
 {
     char c[15];
@@ -101,8 +111,12 @@ void AfficherMatriceValeurs(){
 
 void AfficherRangs(){
     checkErrorGraphe(ourGraph);
-    
-    rangSommets(ourGraph, ourData);
+    if (checkOrdonnancement())
+    {
+        errorOrdonnancement();
+        return;
+    }
+    rangSommets(ourGraph, ourData);   
 }
 
 void AfficherCalendrier(){
@@ -110,11 +124,12 @@ void AfficherCalendrier(){
     
     printf("\n\n ----------------------------------  Affichage  Du Calendrier de  %s --------------------------------------\n\n",getPath());
         
-    if (detectionArcNegatif(tableauDurees(ourData)) || detectionCircuit(ourGraph) || detectPointEntree(ourGraph) == NULL || detectPointSortie(ourGraph) == NULL)
+    if (checkOrdonnancement())
     {
-        printf("\n\n Impossible  d' établir  un calendrier  car le graphe n'est  pas  d'ordonnancement !!\n\n");
+        errorOrdonnancement();
         return;
     }
+    
     
     char buff[100];
 

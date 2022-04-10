@@ -161,6 +161,7 @@ void rangSommets(Graphe *monGraphe, File *data)
     
     copieMonGraphe = copieGraphe(monGraphe);
     pointsEntree = detectPointEntree(copieMonGraphe);
+    afficherFile(pointsEntree);
     
     if (compt == 1)
     {
@@ -170,7 +171,6 @@ void rangSommets(Graphe *monGraphe, File *data)
         {
             printf("Sommet %d \n", defiler(temp));
         }        
-        //afficherFile(pointsEntree);
     }
     printf("------------------------------------------------");
     printf(" Rang : %d \n\n\n", compt);
