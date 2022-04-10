@@ -1,9 +1,0 @@
-- Menu utilisateur -> 
-
-- Gestion des traces -> VITAL  
-
-- Gestion du *getPath() -> KESSEL
-
--> Ne modifie pas la matrice des vakeurs quabd on change un nombre  .... 
-
--> J'ai décommenté plusierus trucs  .... 

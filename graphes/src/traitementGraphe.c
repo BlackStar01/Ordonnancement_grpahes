@@ -148,7 +148,6 @@ bool detectionCircuit(Graphe *monGraphe)
     return (nbrElementsFile(FileDePoint) < copie->nbrSommets);
     // Retourne TRUE s'il y a un circuit et FALSE sinon
 }
-
 /* Important de le mettre hors de la fonction, sinon il reste toujours à 1 */
 int compt = 1;
 
@@ -157,17 +156,24 @@ void rangSommets(Graphe *monGraphe, File *data)
     Graphe *copieMonGraphe = malloc(sizeof(Graphe));
     File *pointsEntree = initialisationFile();
     File *copieData = initialisationFile();
-    
+
     copieData = copieFile(data);
+    
     copieMonGraphe = copieGraphe(monGraphe);
     pointsEntree = detectPointEntree(copieMonGraphe);
     
     if (compt == 1)
     {
-        printf("Sommmet %d  ->  ", pointsEntree->firstElement->nombre);
+        File *temp = initialisationFile();
+        temp = copieFile(pointsEntree);
+        while (temp->firstElement != NULL)
+        {
+            printf("Sommet %d \n", defiler(temp));
+        }        
+        //afficherFile(pointsEntree);
     }
-    
-    printf(" Rang : %d \n\n", compt);
+    printf("------------------------------------------------");
+    printf(" Rang : %d \n\n\n", compt);
     /* Retrouver les indices et mettre les lignes à 0 */
     while (pointsEntree->firstElement != NULL)
     {
@@ -193,18 +199,24 @@ void rangSommets(Graphe *monGraphe, File *data)
         }
         pointsEntree->firstElement = pointsEntree->firstElement->suivant;
     }
+
     compt++;
     pointsEntree = detectPointEntree(copieMonGraphe);
     if (pointsEntree->firstElement == NULL)
     {
+        printf(" on escape \n");
         goto escapeLoop;
     }
     else
     {
-        printf("Sommet %d  ->  ", pointsEntree->firstElement->nombre);
+        File *temp = initialisationFile();
+        temp = copieFile(pointsEntree);
+        while (temp->firstElement != NULL)
+        {
+            printf("Sommet %d \n", defiler(temp));
+        }
     }
     rangSommets(copieMonGraphe, copieData);
     escapeLoop:;
     pointsEntree = initialisationFile();
 }
-

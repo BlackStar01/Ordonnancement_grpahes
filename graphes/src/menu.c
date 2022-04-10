@@ -7,6 +7,15 @@
 File *ourData;
 Graphe *ourGraph;
 
+void checkErrorGraphe(Graphe *graph)
+{
+    if(graph == NULL)
+    {
+        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
+        return;
+    }
+}
+
 void LectureDuFichier()
 {
     char c[15];
@@ -23,7 +32,7 @@ void LectureDuFichier()
     // S'il y a erreur recupererDonnees genere une erreur et le programme s'arrete direct        
     
     printf("\n LOADING  DATAS ...\n");
-    sleep(2);
+    sleep(1);
     system("clear");
     // On vide la console
     
@@ -48,45 +57,29 @@ void constructionDuGraphe(){
     
     ourGraph = (Graphe *)malloc(sizeof(Graphe));
     ourGraph = initialisationGraphe(nbrSommets(), tabDurees, fileP, tableauDeSommets(ourData));
-    sleep(2);
+    sleep(1);
     printf("\n Graphe  créé avec succès... \n");
 }
 
 void AlgoDetectCircuit(){
-if(ourGraph == NULL)
-    {
-        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
-        return;
-    }
+    checkErrorGraphe(ourGraph);
     printf("%s",(!detectionCircuit(ourGraph))?"\n Le graphe ne possède pas de circuit !\n":"\n Il y a un circuit dans le graphe !\n");
 }
 
 void AlgoDetectArcNegatif(){
-if(ourData == NULL)
-    {
-        printf("\n\n Erreur : Aucune donnée n' a été lue!! \n\n");
-        return;
-    }
+    checkErrorGraphe(ourGraph);
     printf("%s",(!detectionArcNegatif(tableauDurees(ourData)))?"\n Le graphe ne possède pas d'arc négatif !\n":"\n Le graphe contient un arc négatif !\n");
 }
 
 void AlgoPointEntreeUnique(){
-    if(ourGraph == NULL)
-    {
-        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
-        return;
-    }
+    checkErrorGraphe(ourGraph);
     printf("%s",(!detectionPointEntreeUnique(ourGraph->matriceAdjacence))?"\n Le graphe a  plusieurs points  d' entrée  qui  sont : ":"\n Le graphe a  un  point  d' entrée unique  qui est :");
     afficherFile(detectPointEntree(ourGraph));
     printf("\n");    
 }
 
 void AlgoPointSortieUnique(){
-    if(ourGraph == NULL)
-    {
-        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
-        return;
-    }
+    checkErrorGraphe(ourGraph);
     
     printf("%s",(!detectionPointSortieUnique(ourGraph->matriceAdjacence))?"\n Le graphe a  plusieurs points  de sortie  qui  sont : ":"\n Le graphe a  un  point  de sortie unique  qui est :");
     afficherFile(detectPointSortie(ourGraph));
@@ -94,47 +87,27 @@ void AlgoPointSortieUnique(){
 }
 
 void AfficherMatriceAdjacence(){
-    if(ourGraph == NULL)
-    {
-        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
-        return;
-    }
-    
+
     printf("\n\n ------------------------ Matrices d'adjacence -----------------------\n\n");
     afficherMatriceBooleenne(ourGraph->matriceAdjacence, nbrSommets(), tableauDeSommets(ourData));
 }
 
 void AfficherMatriceValeurs(){
-    if(ourGraph == NULL)
-    {
-        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
-        return;
-    }
+    checkErrorGraphe(ourGraph);
     
     printf("\n\n ---------------------- Matrice de valeurs  ---------------------------\n\n");
     afficherMatriceNormale(ourGraph->matriceValeurs, nbrSommets(), tableauDeSommets(ourData));
 }
 
 void AfficherRangs(){
-    if(ourGraph == NULL)
-    {
-        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
-        return;
-    }
+    checkErrorGraphe(ourGraph);
     
     rangSommets(ourGraph, ourData);
 }
 
 void AfficherCalendrier(){
-
-    if(ourGraph == NULL)
-    {
-        printf("\n\n Erreur : Graphe  non  initialisé !! \n\n");
-        return;
-    }
+    checkErrorGraphe(ourGraph);
     
-    
-
     printf("\n\n ----------------------------------  Affichage  Du Calendrier de  %s --------------------------------------\n\n",getPath());
         
     if (detectionArcNegatif(tableauDurees(ourData)) || detectionCircuit(ourGraph) || detectPointEntree(ourGraph) == NULL || detectPointSortie(ourGraph) == NULL)
@@ -143,16 +116,14 @@ void AfficherCalendrier(){
         return;
     }
     
-    
     char buff[100];
-    
+
     for (int i = 0; i < 23; i++) printf("-");
-    
     for (int i = 0; i < nbrSommets(); i++)
     {
         for (int j = 0; j < 10; j++) printf("-");
     }
-    
+
     printf("\n");
     
     strcpy(buff,"| Sommets");
