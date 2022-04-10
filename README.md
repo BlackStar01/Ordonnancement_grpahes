@@ -4,14 +4,14 @@
 
 ## AUTEURS
     *   Vital Warren Mahussi AGBANOU ( vitalwarren@yahoo.com )
-    *   Bryan Kessel KOUAM FOZEU
+    *   Briyan Kessel KOUAM FOZEU (kesselfozeu@gmail.com)
     *   Arielle GONDO
     *   Anriane MBUGUEM KOYOUE
 
 ## COMPTABILITÉ : Linux 
 
 ## OBJECTIF
-
+    
     *   Construction d'un graphe
     *   Verification de la possibilité d'un grpahe d'ordonnancement
     *   Calcul des rangs et des calendriers
