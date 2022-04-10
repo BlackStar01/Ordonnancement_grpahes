@@ -2,7 +2,7 @@
 
 ## PROMO : 2024 (en théorie ... :) )
 
-## author:
+## AUTEURS
     *   Vital Warren Mahussi AGBANOU ( vitalwarren@yahoo.com )
     *   Bryan Kessel KOUAM FOZEU
     *   Arielle GONDO
