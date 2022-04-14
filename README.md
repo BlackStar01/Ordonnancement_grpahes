@@ -5,8 +5,6 @@
 ## AUTEURS
     *   Vital Warren Mahussi AGBANOU ( vitalwarren@yahoo.com )
     *   Briyan Kessel KOUAM FOZEU (kesselfozeu@gmail.com)
-    *   Arielle GONDO
-    *   Anriane MBUGUEM KOYOUE
 
 ## COMPTABILITÉ : Linux 
 
